@@ -17,7 +17,7 @@ func RunPanicless(f func()) (panicless bool) {
 		err := recover()
 		panicless = err == nil
 		if err != nil {
-			fmt.Printf("%s panic: %s", f, err)
+			fmt.Printf("%T panic: %s", f, err)
 		}
 	}()
 	f()

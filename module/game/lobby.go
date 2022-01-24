@@ -58,12 +58,12 @@ func lobbyChat(lobby *Lobby) {
 		for {
 			select {
 			case msg := <-lobby.LobbyChatChannel:
-				fmt.Println(msg)
+				fmt.Println("大厅推送消息：", msg)
 				//对所有大厅玩家推送消息
-				for k, v := range lobby.Players {
-					fmt.Println(k, v)
-					//v.conn.Write([]byte(msg))
-				}
+				// for k, v := range lobby.Players {
+				// 	fmt.Println(k, v)
+				// 	//v.conn.Write([]byte(msg))
+				// }
 			}
 		}
 	})

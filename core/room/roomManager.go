@@ -7,6 +7,7 @@ import (
 
 type RoomManager struct {
 	rooms map[string]map[string]*Room
+	ctx   context.Context
 	Lock  *sync.RWMutex
 }
 
@@ -24,6 +25,7 @@ func NewRoomManager() IRoomManager {
 		RoomManagerInstance = &RoomManager{
 			rooms: make(map[string]map[string]*Room),
 			Lock:  new(sync.RWMutex),
+			ctx:   context.Background(),
 		}
 	})
 	return RoomManagerInstance
@@ -32,8 +34,8 @@ func NewRoomManager() IRoomManager {
 func (rm *RoomManager) CreateRoom(roomName, roomType string) *Room {
 	rm.Lock.Lock()
 	defer rm.Lock.Unlock()
-	ctx, _ := context.WithCancel(context.Background())
-	room := NewRoom(roomName, roomType, ctx)
+	// ctx, cancel := context.WithCancel(rm.ctx)
+	room := NewRoom(roomName, roomType, rm.ctx)
 	rm.rooms[roomType][roomName] = room
 	go room.Run()
 	return room
