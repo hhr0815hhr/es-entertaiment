@@ -8,6 +8,10 @@ func NewServer(id int64) *UdpServer {
 	}
 }
 
+func (us *UdpServer) SetHandle(f interface{}) {
+
+}
+
 func (us *UdpServer) BeforeRun() {
 
 }

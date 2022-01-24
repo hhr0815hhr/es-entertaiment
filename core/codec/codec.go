@@ -1,15 +1,19 @@
 package codec
 
 import (
-	"errors"
 	"es-entertainment/core/codec/json"
 	"es-entertainment/core/codec/protobuf"
+	"sync"
 )
 
-var CodeCType = CodeC_JSON
+var (
+	once      sync.Once
+	codecType = CodeC_JSON
+	c         ICodeC
+)
 
 func SetCodeCType(codeCType string) {
-	CodeCType = codeCType
+	codecType = codeCType
 }
 
 type ICodeC interface {
@@ -17,13 +21,14 @@ type ICodeC interface {
 	Decode(data []byte, v interface{}) error
 }
 
-func NewCodeC(codecType string) (ICodeC, error) {
-	switch codecType {
-	case CodeC_JSON:
-		return json.NewCodeC(), nil
-	case CodeC_PROTOBUF:
-		return protobuf.NewCodeC(), nil
-	default:
-		return nil, errors.New(ErrCodeCTypeNotFound)
-	}
+func Instance() ICodeC {
+	once.Do(func() {
+		switch codecType {
+		case CodeC_JSON:
+			c = json.NewCodeC()
+		case CodeC_PROTOBUF:
+			c = protobuf.NewCodeC()
+		}
+	})
+	return c
 }

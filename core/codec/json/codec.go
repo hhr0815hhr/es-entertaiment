@@ -1,5 +1,7 @@
 package json
 
+import "encoding/json"
+
 type JsonCodeC struct{}
 
 func NewCodeC() *JsonCodeC {
@@ -7,9 +9,9 @@ func NewCodeC() *JsonCodeC {
 }
 
 func (jc *JsonCodeC) Encode(data interface{}) ([]byte, error) {
-	return nil, nil
+	return json.Marshal(data)
 }
 
 func (jc *JsonCodeC) Decode(data []byte, v interface{}) error {
-	return nil
+	return json.Unmarshal(data, v)
 }

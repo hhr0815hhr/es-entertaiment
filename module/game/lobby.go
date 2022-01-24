@@ -1,6 +1,7 @@
 package game
 
 import (
+	"es-entertainment/common"
 	"es-entertainment/core/room"
 	"fmt"
 	"sync"
@@ -22,6 +23,7 @@ func InitLobby() {
 		Lock:             new(sync.RWMutex),
 		LobbyChatChannel: make(chan string, 1000),
 	}
+	go lobbyChat(LobbyInstance)
 	fmt.Println("初始化Lobby完成")
 }
 
@@ -49,4 +51,20 @@ func (l *Lobby) LeaveLobby(player interface{}) error {
 	delete(l.Players, id)
 	l.LobbyChatChannel <- "玩家离开大厅"
 	return nil
+}
+
+func lobbyChat(lobby *Lobby) {
+	common.RunNoPanic(func() {
+		for {
+			select {
+			case msg := <-lobby.LobbyChatChannel:
+				fmt.Println(msg)
+				//对所有大厅玩家推送消息
+				for k, v := range lobby.Players {
+					fmt.Println(k, v)
+					//v.conn.Write([]byte(msg))
+				}
+			}
+		}
+	})
 }
