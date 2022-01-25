@@ -24,7 +24,7 @@ func InitLobby() {
 		LobbyChatChannel: make(chan string, 1000),
 	}
 	go lobbyChat(LobbyInstance)
-	fmt.Println("初始化Lobby完成")
+	fmt.Println("init lobby success...")
 }
 
 func (l *Lobby) GetRooms(roomType string) map[string]*room.Room {

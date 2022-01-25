@@ -1,6 +1,9 @@
 package conf
 
 import (
+	"es-entertainment/core/database/mysql"
+	"es-entertainment/core/database/redis"
+
 	"github.com/spf13/viper"
 )
 
@@ -10,18 +13,8 @@ type Config struct {
 		Port int    `yaml:"port"`
 	}
 
-	Redis struct {
-		Host string
-		Port int
-		Auth string
-	}
-	Mysql map[string]struct {
-		Host string
-		Port int
-		User string
-		Pass string
-		Db   string
-	}
+	Redis redis.RedisStruct
+	Mysql map[string]mysql.MysqlStruct
 }
 
 func GetConf() Config {

@@ -17,9 +17,13 @@ mysql:
     user: root
     pass: root
     db:   test_m
+    maxIdleConns: 10
+    maxOpenConns: 100
   slaver:
     host: 192.168.2.157
     port: 3306
     user: root
     pass: root
     db:   test_s
+    maxIdleConns: 10
+    maxOpenConns: 100

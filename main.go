@@ -1,6 +1,8 @@
 package main
 
 import (
+	"es-entertainment/conf"
+	"es-entertainment/core/database/mysql"
 	cs "es-entertainment/core/server"
 	"es-entertainment/module/game"
 	"es-entertainment/module/server"
@@ -18,14 +20,17 @@ func init() {
 
 func main() {
 	flag.Parse()
-	initModules()
-	err := server.Run(serverType)
+	cfg := conf.GetConf()
+	initModules(cfg)
+	err := server.Run(serverType, cfg)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func initModules() {
+func initModules(cfg conf.Config) {
+
+	mysql.InitDB(cfg.Mysql["master"], cfg.Mysql["slave"])
 	game.InitLobby()
 	// player.InitPlayer()
 }

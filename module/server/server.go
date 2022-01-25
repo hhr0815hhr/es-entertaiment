@@ -6,9 +6,8 @@ import (
 	"es-entertainment/lib/handle"
 )
 
-func Run(serverType string) error {
+func Run(serverType string, cfg conf.Config) error {
 	//get conf  host string, port int
-	cfg := conf.GetConf()
 	s, err := server.NewServer(1, server.Server_Type_WS)
 	s.SetHandle(handle.WsHandle)
 	if err != nil {
