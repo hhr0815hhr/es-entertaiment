@@ -29,7 +29,6 @@ func main() {
 }
 
 func initModules(cfg conf.Config) {
-
 	mysql.InitDB(cfg.Mysql["master"], cfg.Mysql["slave"])
 	game.InitLobby()
 	// player.InitPlayer()
