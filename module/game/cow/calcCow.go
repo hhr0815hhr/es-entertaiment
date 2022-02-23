@@ -6,15 +6,18 @@ import (
 
 func CalcCow(cards []int) (haveCow bool, cowType int) {
 	// length := len(cards)
-	cards = formatCards(cards)
-	sum := common.SumSlice(cards)
+	cp, isFlower := formatCards(cards)
+	if isFlower {
+		return true, Type_CowsFlower
+	}
+	sum := common.SumSlice(cp)
 	if sum <= 10 {
-		return true, 12
+		return true, Type_CowsBit
 	}
 	for i := 0; i < 3; i++ {
 		for j := i + 1; j < 4; j++ {
 			for k := j + 1; k < 5; k++ {
-				if (cards[i]+cards[j]+cards[k])%10 == 0 {
+				if (cp[i]+cp[j]+cp[k])%10 == 0 {
 					haveCow = true
 					break
 				}
@@ -22,21 +25,25 @@ func CalcCow(cards []int) (haveCow bool, cowType int) {
 		}
 	}
 	if haveCow {
-
 		cowType = sum % 10
 		if cowType == 0 {
-			cowType = 10
+			cowType = Type_Cows
 		}
 	}
 	return
 }
 
-func formatCards(cards []int) []int {
-	for i := 0; i < len(cards); i++ {
-		cards[i] = int(cards[i] / 10)
-		if cards[i] > 10 {
-			cards[i] = 10
+func formatCards(cards []int) (cp []int, isFlower bool) {
+	isFlower = true
+	cp = make([]int, 0, 5)
+	copy(cp, cards)
+	for i := 0; i < len(cp); i++ {
+		cards[i] = int(cp[i] / 10)
+		if cp[i] >= 10 {
+			cp[i] = 10
+		} else {
+			isFlower = false
 		}
 	}
-	return cards
+	return
 }
