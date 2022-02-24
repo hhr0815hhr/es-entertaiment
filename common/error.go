@@ -1,11 +1,15 @@
 package common
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-func CatchPanic(f func()) (err interface{}) {
+func CatchPanic(f func()) (err error) {
 	defer func() {
-		if err = recover(); err != nil {
-			fmt.Println("panic:", err)
+		if p := recover(); p != nil {
+			fmt.Println("panic:", p)
+			err = errors.New(p.(string))
 		}
 	}()
 	f()

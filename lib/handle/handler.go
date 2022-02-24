@@ -1,7 +1,7 @@
 package handle
 
 import (
-	"es-entertainment/core/codec"
+	"context"
 	"es-entertainment/core/pack"
 	"fmt"
 	"net/http"
@@ -25,6 +25,9 @@ func WsHandle(c *gin.Context) {
 	go func() {
 		defer conn.Close()
 		for {
+			ctxMap := make(map[string]interface{})
+			ctxMap["conn"] = conn
+			ctx := context.WithValue(context.Background(), "value", ctxMap)
 			_, message, err := conn.ReadMessage()
 			if err != nil {
 				fmt.Println(err)
@@ -38,20 +41,13 @@ func WsHandle(c *gin.Context) {
 				fmt.Println(err)
 				continue
 			}
-			//解码
-			var decode DecodeStruct
-			err = codec.Instance().Decode(data.([]byte), &decode)
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			fmt.Println("解码数据：", decode)
-			dispatch(decode.Cmd, decode.Data)
-			err = conn.WriteMessage(websocket.TextMessage, message)
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
+
+			dispatch(ctx, data)
+			// err = conn.WriteMessage(websocket.TextMessage, message)
+			// if err != nil {
+			// 	fmt.Println(err)
+			// 	continue
+			// }
 		}
 	}()
 }
