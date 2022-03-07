@@ -2,7 +2,6 @@ package handle
 
 import (
 	"context"
-	"es-entertainment/core/pack"
 	"fmt"
 	"net/http"
 
@@ -29,25 +28,30 @@ func WsHandle(c *gin.Context) {
 			ctxMap["conn"] = conn
 			ctx := context.WithValue(context.Background(), "value", ctxMap)
 			_, message, err := conn.ReadMessage()
+
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
+			// ws不用拆包分包
 			// fmt.Println("原数据：", string(message))
 			//解包
-			data, err := pack.Instance().Unpack(message)
+			// data, err := pack.Instance().Unpack(message)
 			// fmt.Println("解包数据：", data)
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
-
-			dispatch(ctx, data)
-			// err = conn.WriteMessage(websocket.TextMessage, message)
-			// if err != nil {
-			// 	fmt.Println(err)
-			// 	continue
-			// }
+			dispatch(ctx, message)
 		}
 	}()
+}
+
+func HttpHandle(ctx *gin.Context) {
+	if ctx.Request.URL.Path == "/favicon.ico" {
+		ctx.Abort()
+		return
+	}
+	fmt.Println(ctx.Request.URL.Path)
+	ctx.String(200, "hello")
 }

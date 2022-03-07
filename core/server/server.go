@@ -11,7 +11,7 @@ type IServer interface {
 	BeforeRun()
 	Run(host string, port int) error
 	Stop()
-	SetHandle(f interface{})
+	SetHandle(f interface{}, fHttp interface{})
 }
 
 func NewServer(id int64, serverType string) (IServer, error) {

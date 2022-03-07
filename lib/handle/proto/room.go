@@ -25,6 +25,6 @@ func (l *CreateRoom) Handle(ctx context.Context, data interface{}) {
 type Ready struct{}
 
 func (r *Ready) Handle(ctx context.Context, data interface{}) {
-	player_id := ctx.Value("value").(map[string]interface{})["player"].(int)
-	room_id := ctx.Value("value").(map[string]interface{})["room"].(int)
+	// player_id := ctx.Value("value").(map[string]interface{})["player"].(int)
+	// room_id := ctx.Value("value").(map[string]interface{})["room"].(int)
 }

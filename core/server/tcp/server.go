@@ -8,7 +8,7 @@ func NewServer(id int64) *TcpServer {
 	}
 }
 
-func (ts *TcpServer) SetHandle(f interface{}) {
+func (ts *TcpServer) SetHandle(f interface{}, httpF interface{}) {
 
 }
 

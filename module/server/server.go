@@ -8,10 +8,12 @@ import (
 
 func Run(serverType string, cfg conf.Config) error {
 	//get conf  host string, port int
-	s, err := server.NewServer(1, server.Server_Type_WS)
-	s.SetHandle(handle.WsHandle)
+	s, err := server.NewServer(1, serverType)
 	if err != nil {
-		return nil
+		return err
+	}
+	if serverType == "ws" {
+		s.SetHandle(handle.WsHandle, handle.HttpHandle)
 	}
 	// s.BeforeRun()
 	err = s.Run(cfg.Server.Host, cfg.Server.Port)

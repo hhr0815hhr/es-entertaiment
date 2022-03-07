@@ -20,20 +20,20 @@ type IDispatch interface {
 }
 
 var (
-	route map[string]IDispatch
+	route map[int]IDispatch
 )
 
 func init() {
 	//初始化dispatch map
-	route = make(map[string]IDispatch)
-	route[`login`] = &proto.Login{}
-	route[`createRoom`] = &proto.CreateRoom{}
+	route = make(map[int]IDispatch)
+	route[10001] = &proto.Login{}
+	route[20001] = &proto.CreateRoom{}
 }
 
-func dispatch(ctx context.Context, data interface{}) {
-	//解码
+func dispatch(ctx context.Context, data []byte) {
+
 	var decode DecodeStruct
-	err := codec.Instance().Decode(data.([]byte), &decode)
+	err := codec.Instance().Decode(data, &decode)
 	if err != nil {
 		fmt.Println(err)
 	}
