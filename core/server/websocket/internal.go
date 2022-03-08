@@ -8,8 +8,8 @@ import (
 )
 
 func serve(host string, port int, wsHandle func(ctx *gin.Context), httpHandle func(ctx *gin.Context)) error {
-	r := gin.Default()
-	r.GET("/", httpHandle)
+	r := gin.New()
+	r.Any("/", httpHandle)
 	r.GET("/ws", wsHandle)
 	err := r.Run(fmt.Sprintf("%s:%d", host, port))
 	if err != nil {

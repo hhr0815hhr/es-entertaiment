@@ -22,6 +22,163 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type C2S_RoomList struct {
+	RoomType             string   `protobuf:"bytes,1,opt,name=RoomType,proto3" json:"RoomType,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *C2S_RoomList) Reset()         { *m = C2S_RoomList{} }
+func (m *C2S_RoomList) String() string { return proto.CompactTextString(m) }
+func (*C2S_RoomList) ProtoMessage()    {}
+func (*C2S_RoomList) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{0}
+}
+func (m *C2S_RoomList) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *C2S_RoomList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_C2S_RoomList.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *C2S_RoomList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_C2S_RoomList.Merge(m, src)
+}
+func (m *C2S_RoomList) XXX_Size() int {
+	return m.Size()
+}
+func (m *C2S_RoomList) XXX_DiscardUnknown() {
+	xxx_messageInfo_C2S_RoomList.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_C2S_RoomList proto.InternalMessageInfo
+
+func (m *C2S_RoomList) GetRoomType() string {
+	if m != nil {
+		return m.RoomType
+	}
+	return ""
+}
+
+type S2C_RoomList struct {
+	RoomList             []*RoomInfo `protobuf:"bytes,1,rep,name=RoomList,proto3" json:"RoomList,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *S2C_RoomList) Reset()         { *m = S2C_RoomList{} }
+func (m *S2C_RoomList) String() string { return proto.CompactTextString(m) }
+func (*S2C_RoomList) ProtoMessage()    {}
+func (*S2C_RoomList) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{1}
+}
+func (m *S2C_RoomList) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_RoomList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_RoomList.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_RoomList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_RoomList.Merge(m, src)
+}
+func (m *S2C_RoomList) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_RoomList) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_RoomList.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_RoomList proto.InternalMessageInfo
+
+func (m *S2C_RoomList) GetRoomList() []*RoomInfo {
+	if m != nil {
+		return m.RoomList
+	}
+	return nil
+}
+
+type RoomInfo struct {
+	RoomId               int32    `protobuf:"varint,1,opt,name=RoomId,proto3" json:"RoomId,omitempty"`
+	RoomPlayerNum        int32    `protobuf:"varint,2,opt,name=RoomPlayerNum,proto3" json:"RoomPlayerNum,omitempty"`
+	RoomStatus           int32    `protobuf:"varint,3,opt,name=RoomStatus,proto3" json:"RoomStatus,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RoomInfo) Reset()         { *m = RoomInfo{} }
+func (m *RoomInfo) String() string { return proto.CompactTextString(m) }
+func (*RoomInfo) ProtoMessage()    {}
+func (*RoomInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{2}
+}
+func (m *RoomInfo) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *RoomInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_RoomInfo.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *RoomInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoomInfo.Merge(m, src)
+}
+func (m *RoomInfo) XXX_Size() int {
+	return m.Size()
+}
+func (m *RoomInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoomInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RoomInfo proto.InternalMessageInfo
+
+func (m *RoomInfo) GetRoomId() int32 {
+	if m != nil {
+		return m.RoomId
+	}
+	return 0
+}
+
+func (m *RoomInfo) GetRoomPlayerNum() int32 {
+	if m != nil {
+		return m.RoomPlayerNum
+	}
+	return 0
+}
+
+func (m *RoomInfo) GetRoomStatus() int32 {
+	if m != nil {
+		return m.RoomStatus
+	}
+	return 0
+}
+
 type C2S_CreateRoom struct {
 	RoomType             string   `protobuf:"bytes,1,opt,name=RoomType,proto3" json:"RoomType,omitempty"`
 	RoomName             string   `protobuf:"bytes,2,opt,name=RoomName,proto3" json:"RoomName,omitempty"`
@@ -34,7 +191,7 @@ func (m *C2S_CreateRoom) Reset()         { *m = C2S_CreateRoom{} }
 func (m *C2S_CreateRoom) String() string { return proto.CompactTextString(m) }
 func (*C2S_CreateRoom) ProtoMessage()    {}
 func (*C2S_CreateRoom) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c5fd27dd97284ef4, []int{0}
+	return fileDescriptor_c5fd27dd97284ef4, []int{3}
 }
 func (m *C2S_CreateRoom) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -77,21 +234,473 @@ func (m *C2S_CreateRoom) GetRoomName() string {
 	return ""
 }
 
+type S2C_CreateRoom struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *S2C_CreateRoom) Reset()         { *m = S2C_CreateRoom{} }
+func (m *S2C_CreateRoom) String() string { return proto.CompactTextString(m) }
+func (*S2C_CreateRoom) ProtoMessage()    {}
+func (*S2C_CreateRoom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{4}
+}
+func (m *S2C_CreateRoom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_CreateRoom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_CreateRoom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_CreateRoom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_CreateRoom.Merge(m, src)
+}
+func (m *S2C_CreateRoom) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_CreateRoom) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_CreateRoom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_CreateRoom proto.InternalMessageInfo
+
+func (m *S2C_CreateRoom) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+type C2S_EnterRoom struct {
+	RoomId               string   `protobuf:"bytes,1,opt,name=RoomId,proto3" json:"RoomId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *C2S_EnterRoom) Reset()         { *m = C2S_EnterRoom{} }
+func (m *C2S_EnterRoom) String() string { return proto.CompactTextString(m) }
+func (*C2S_EnterRoom) ProtoMessage()    {}
+func (*C2S_EnterRoom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{5}
+}
+func (m *C2S_EnterRoom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *C2S_EnterRoom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_C2S_EnterRoom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *C2S_EnterRoom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_C2S_EnterRoom.Merge(m, src)
+}
+func (m *C2S_EnterRoom) XXX_Size() int {
+	return m.Size()
+}
+func (m *C2S_EnterRoom) XXX_DiscardUnknown() {
+	xxx_messageInfo_C2S_EnterRoom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_C2S_EnterRoom proto.InternalMessageInfo
+
+func (m *C2S_EnterRoom) GetRoomId() string {
+	if m != nil {
+		return m.RoomId
+	}
+	return ""
+}
+
+type S2C_EnterRoom struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *S2C_EnterRoom) Reset()         { *m = S2C_EnterRoom{} }
+func (m *S2C_EnterRoom) String() string { return proto.CompactTextString(m) }
+func (*S2C_EnterRoom) ProtoMessage()    {}
+func (*S2C_EnterRoom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{6}
+}
+func (m *S2C_EnterRoom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_EnterRoom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_EnterRoom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_EnterRoom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_EnterRoom.Merge(m, src)
+}
+func (m *S2C_EnterRoom) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_EnterRoom) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_EnterRoom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_EnterRoom proto.InternalMessageInfo
+
+func (m *S2C_EnterRoom) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+type C2S_LeaveRoom struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *C2S_LeaveRoom) Reset()         { *m = C2S_LeaveRoom{} }
+func (m *C2S_LeaveRoom) String() string { return proto.CompactTextString(m) }
+func (*C2S_LeaveRoom) ProtoMessage()    {}
+func (*C2S_LeaveRoom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{7}
+}
+func (m *C2S_LeaveRoom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *C2S_LeaveRoom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_C2S_LeaveRoom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *C2S_LeaveRoom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_C2S_LeaveRoom.Merge(m, src)
+}
+func (m *C2S_LeaveRoom) XXX_Size() int {
+	return m.Size()
+}
+func (m *C2S_LeaveRoom) XXX_DiscardUnknown() {
+	xxx_messageInfo_C2S_LeaveRoom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_C2S_LeaveRoom proto.InternalMessageInfo
+
+type S2C_LeaveRoom struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *S2C_LeaveRoom) Reset()         { *m = S2C_LeaveRoom{} }
+func (m *S2C_LeaveRoom) String() string { return proto.CompactTextString(m) }
+func (*S2C_LeaveRoom) ProtoMessage()    {}
+func (*S2C_LeaveRoom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{8}
+}
+func (m *S2C_LeaveRoom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_LeaveRoom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_LeaveRoom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_LeaveRoom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_LeaveRoom.Merge(m, src)
+}
+func (m *S2C_LeaveRoom) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_LeaveRoom) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_LeaveRoom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_LeaveRoom proto.InternalMessageInfo
+
+func (m *S2C_LeaveRoom) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+type C2S_Ready struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *C2S_Ready) Reset()         { *m = C2S_Ready{} }
+func (m *C2S_Ready) String() string { return proto.CompactTextString(m) }
+func (*C2S_Ready) ProtoMessage()    {}
+func (*C2S_Ready) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{9}
+}
+func (m *C2S_Ready) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *C2S_Ready) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_C2S_Ready.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *C2S_Ready) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_C2S_Ready.Merge(m, src)
+}
+func (m *C2S_Ready) XXX_Size() int {
+	return m.Size()
+}
+func (m *C2S_Ready) XXX_DiscardUnknown() {
+	xxx_messageInfo_C2S_Ready.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_C2S_Ready proto.InternalMessageInfo
+
+type S2C_Ready struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *S2C_Ready) Reset()         { *m = S2C_Ready{} }
+func (m *S2C_Ready) String() string { return proto.CompactTextString(m) }
+func (*S2C_Ready) ProtoMessage()    {}
+func (*S2C_Ready) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c5fd27dd97284ef4, []int{10}
+}
+func (m *S2C_Ready) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_Ready) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_Ready.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_Ready) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_Ready.Merge(m, src)
+}
+func (m *S2C_Ready) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_Ready) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_Ready.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_Ready proto.InternalMessageInfo
+
+func (m *S2C_Ready) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
 func init() {
+	proto.RegisterType((*C2S_RoomList)(nil), "protos.C2S_RoomList")
+	proto.RegisterType((*S2C_RoomList)(nil), "protos.S2C_RoomList")
+	proto.RegisterType((*RoomInfo)(nil), "protos.RoomInfo")
 	proto.RegisterType((*C2S_CreateRoom)(nil), "protos.C2S_CreateRoom")
+	proto.RegisterType((*S2C_CreateRoom)(nil), "protos.S2C_CreateRoom")
+	proto.RegisterType((*C2S_EnterRoom)(nil), "protos.C2S_EnterRoom")
+	proto.RegisterType((*S2C_EnterRoom)(nil), "protos.S2C_EnterRoom")
+	proto.RegisterType((*C2S_LeaveRoom)(nil), "protos.C2S_LeaveRoom")
+	proto.RegisterType((*S2C_LeaveRoom)(nil), "protos.S2C_LeaveRoom")
+	proto.RegisterType((*C2S_Ready)(nil), "protos.C2S_Ready")
+	proto.RegisterType((*S2C_Ready)(nil), "protos.S2C_Ready")
 }
 
 func init() { proto.RegisterFile("room.proto", fileDescriptor_c5fd27dd97284ef4) }
 
 var fileDescriptor_c5fd27dd97284ef4 = []byte{
-	// 112 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0xca, 0xcf, 0xcf,
-	0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0x53, 0xc5, 0x4a, 0x1e, 0x5c, 0x7c, 0xce,
-	0x46, 0xc1, 0xf1, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9, 0x41, 0xf9, 0xf9, 0xb9, 0x42, 0x52, 0x5c,
-	0x1c, 0x20, 0x3a, 0xa4, 0xb2, 0x20, 0x55, 0x82, 0x51, 0x81, 0x51, 0x83, 0x33, 0x08, 0xce, 0x87,
-	0xc9, 0xf9, 0x25, 0xe6, 0xa6, 0x4a, 0x30, 0x21, 0xe4, 0x40, 0x7c, 0x27, 0x81, 0x13, 0x8f, 0xe4,
-	0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc6, 0x63, 0x39, 0x86, 0x24, 0x88,
-	0x1d, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x2d, 0xd5, 0xa8, 0x7a, 0x78, 0x00, 0x00, 0x00,
+	// 301 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xc1, 0x4a, 0xc3, 0x40,
+	0x14, 0x74, 0xad, 0x16, 0xf3, 0xda, 0xd4, 0xb2, 0x07, 0x09, 0x1e, 0x62, 0x59, 0x0b, 0x16, 0x91,
+	0x1e, 0xe2, 0xd5, 0x93, 0x41, 0x50, 0x28, 0x45, 0x12, 0xef, 0xb2, 0x9a, 0x15, 0x05, 0xd3, 0x2d,
+	0xc9, 0x56, 0xc8, 0x9f, 0xf8, 0x49, 0x1e, 0xfd, 0x04, 0x89, 0x3f, 0x22, 0xef, 0x6d, 0x92, 0xb6,
+	0x10, 0x3c, 0x65, 0xde, 0xbc, 0xd9, 0x99, 0x0c, 0xbb, 0x00, 0x99, 0xd6, 0xe9, 0x74, 0x99, 0x69,
+	0xa3, 0x79, 0x97, 0x3e, 0xb9, 0x38, 0x87, 0x7e, 0x18, 0xc4, 0x8f, 0x91, 0xd6, 0xe9, 0xec, 0x2d,
+	0x37, 0xfc, 0x18, 0x0e, 0x10, 0x3f, 0x14, 0x4b, 0xe5, 0xb1, 0x11, 0x9b, 0x38, 0x51, 0x33, 0x8b,
+	0x2b, 0xe8, 0xc7, 0x41, 0xb8, 0xd6, 0x5e, 0x58, 0x2d, 0x62, 0x8f, 0x8d, 0x3a, 0x93, 0x5e, 0x30,
+	0xb4, 0xee, 0xf9, 0x14, 0xf9, 0xbb, 0xc5, 0x8b, 0x8e, 0x1a, 0x85, 0x78, 0xb5, 0x6a, 0x64, 0xf9,
+	0x11, 0x74, 0x09, 0x27, 0x94, 0xb1, 0x1f, 0x55, 0x13, 0x1f, 0x83, 0x8b, 0xe8, 0xfe, 0x5d, 0x16,
+	0x2a, 0x9b, 0xaf, 0x52, 0x6f, 0x97, 0xd6, 0xdb, 0x24, 0xf7, 0x01, 0x90, 0x88, 0x8d, 0x34, 0xab,
+	0xdc, 0xeb, 0x90, 0x64, 0x83, 0x11, 0xb7, 0x30, 0xc0, 0x4e, 0x61, 0xa6, 0xa4, 0x51, 0xc8, 0xff,
+	0xd7, 0xaa, 0xde, 0xcd, 0x65, 0xaa, 0x28, 0xae, 0xda, 0xe1, 0x2c, 0xc6, 0x30, 0xc0, 0xc6, 0x1b,
+	0x4e, 0x1c, 0xf6, 0x9e, 0x75, 0xa2, 0xaa, 0xff, 0x26, 0x2c, 0xce, 0xc0, 0xc5, 0xbc, 0x9b, 0x85,
+	0x51, 0x19, 0x89, 0xb6, 0xeb, 0x39, 0x75, 0x3d, 0x71, 0x0a, 0x2e, 0xda, 0xad, 0x85, 0x6d, 0x6e,
+	0x87, 0xd6, 0x6d, 0xa6, 0xe4, 0x07, 0x45, 0xd6, 0xa7, 0x1a, 0xa2, 0xf5, 0x54, 0x0f, 0x1c, 0xba,
+	0x47, 0x25, 0x93, 0x42, 0x9c, 0x80, 0x43, 0x17, 0x85, 0x43, 0x9b, 0xfa, 0x7a, 0xf8, 0x55, 0xfa,
+	0xec, 0xbb, 0xf4, 0xd9, 0x4f, 0xe9, 0xb3, 0xcf, 0x5f, 0x7f, 0xe7, 0xc9, 0xbe, 0x87, 0xcb, 0xbf,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x63, 0x4d, 0x2d, 0x61, 0x24, 0x02, 0x00, 0x00,
+}
+
+func (m *C2S_RoomList) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *C2S_RoomList) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *C2S_RoomList) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.RoomType) > 0 {
+		i -= len(m.RoomType)
+		copy(dAtA[i:], m.RoomType)
+		i = encodeVarintRoom(dAtA, i, uint64(len(m.RoomType)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *S2C_RoomList) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_RoomList) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_RoomList) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.RoomList) > 0 {
+		for iNdEx := len(m.RoomList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.RoomList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintRoom(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *RoomInfo) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *RoomInfo) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *RoomInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.RoomStatus != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.RoomStatus))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.RoomPlayerNum != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.RoomPlayerNum))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.RoomId != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.RoomId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *C2S_CreateRoom) Marshal() (dAtA []byte, err error) {
@@ -135,6 +744,222 @@ func (m *C2S_CreateRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *S2C_CreateRoom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_CreateRoom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_CreateRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Code != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *C2S_EnterRoom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *C2S_EnterRoom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *C2S_EnterRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.RoomId) > 0 {
+		i -= len(m.RoomId)
+		copy(dAtA[i:], m.RoomId)
+		i = encodeVarintRoom(dAtA, i, uint64(len(m.RoomId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *S2C_EnterRoom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_EnterRoom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_EnterRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Code != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *C2S_LeaveRoom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *C2S_LeaveRoom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *C2S_LeaveRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *S2C_LeaveRoom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_LeaveRoom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_LeaveRoom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Code != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *C2S_Ready) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *C2S_Ready) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *C2S_Ready) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *S2C_Ready) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_Ready) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_Ready) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Code != 0 {
+		i = encodeVarintRoom(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintRoom(dAtA []byte, offset int, v uint64) int {
 	offset -= sovRoom(v)
 	base := offset
@@ -146,6 +971,61 @@ func encodeVarintRoom(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *C2S_RoomList) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.RoomType)
+	if l > 0 {
+		n += 1 + l + sovRoom(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *S2C_RoomList) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.RoomList) > 0 {
+		for _, e := range m.RoomList {
+			l = e.Size()
+			n += 1 + l + sovRoom(uint64(l))
+		}
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *RoomInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.RoomId != 0 {
+		n += 1 + sovRoom(uint64(m.RoomId))
+	}
+	if m.RoomPlayerNum != 0 {
+		n += 1 + sovRoom(uint64(m.RoomPlayerNum))
+	}
+	if m.RoomStatus != 0 {
+		n += 1 + sovRoom(uint64(m.RoomStatus))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func (m *C2S_CreateRoom) Size() (n int) {
 	if m == nil {
 		return 0
@@ -166,11 +1046,387 @@ func (m *C2S_CreateRoom) Size() (n int) {
 	return n
 }
 
+func (m *S2C_CreateRoom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovRoom(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *C2S_EnterRoom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.RoomId)
+	if l > 0 {
+		n += 1 + l + sovRoom(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *S2C_EnterRoom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovRoom(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *C2S_LeaveRoom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *S2C_LeaveRoom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovRoom(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *C2S_Ready) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *S2C_Ready) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovRoom(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func sovRoom(x uint64) (n int) {
 	return (math_bits.Len64(x|1) + 6) / 7
 }
 func sozRoom(x uint64) (n int) {
 	return sovRoom(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *C2S_RoomList) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: C2S_RoomList: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: C2S_RoomList: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthRoom
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_RoomList) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_RoomList: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_RoomList: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRoom
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomList = append(m.RoomList, &RoomInfo{})
+			if err := m.RoomList[len(m.RoomList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *RoomInfo) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: RoomInfo: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: RoomInfo: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomId", wireType)
+			}
+			m.RoomId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RoomId |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomPlayerNum", wireType)
+			}
+			m.RoomPlayerNum = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RoomPlayerNum |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomStatus", wireType)
+			}
+			m.RoomStatus = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RoomStatus |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *C2S_CreateRoom) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -265,6 +1521,471 @@ func (m *C2S_CreateRoom) Unmarshal(dAtA []byte) error {
 			}
 			m.RoomName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_CreateRoom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_CreateRoom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_CreateRoom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *C2S_EnterRoom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: C2S_EnterRoom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: C2S_EnterRoom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthRoom
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_EnterRoom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_EnterRoom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_EnterRoom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *C2S_LeaveRoom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: C2S_LeaveRoom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: C2S_LeaveRoom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_LeaveRoom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_LeaveRoom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_LeaveRoom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *C2S_Ready) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: C2S_Ready: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: C2S_Ready: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRoom(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRoom
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_Ready) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRoom
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_Ready: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_Ready: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRoom
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipRoom(dAtA[iNdEx:])

@@ -24,6 +24,7 @@ func init() {
 	//初始化dispatch map
 	route = make(map[int]IDispatch)
 	route[10001] = &proto.Login{}
+	route[20000] = &proto.RoomList{}
 	route[20001] = &proto.CreateRoom{}
 
 }

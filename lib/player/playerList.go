@@ -1,25 +1,14 @@
 package player
 
 import (
+	p "es-entertainment/module/data/player"
 	"sync"
-
-	"github.com/gorilla/websocket"
 )
 
 type PlayerList struct {
 	*sync.Map
 }
 
-type Player struct {
-	Id    int
-	Nick  string
-	Icon  string
-	Coin  int
-	Level int
-	Sex   int
-	Other PlayerOther
-}
-
-type PlayerOther struct {
-	Conn *websocket.Conn
+func LoadPlayer(p *p.Player) {
+	PlayerMap.Store(p.Id, p)
 }

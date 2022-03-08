@@ -1,6 +1,20 @@
 syntax="proto3";
 package protos;
 
+message C2S_RoomList {
+    string RoomType = 1;
+}
+
+message S2C_RoomList {
+    repeated RoomInfo RoomList = 1;
+}
+
+message RoomInfo {
+    int32 RoomId = 1;
+    int32 RoomPlayerNum = 2;
+    int32 RoomStatus = 3;
+}
+
 message C2S_CreateRoom {
     string RoomType = 1;
     string RoomName = 2;

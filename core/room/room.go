@@ -9,13 +9,13 @@ import (
 )
 
 type Room struct {
-	Id                 int
+	Id                 int32
 	Type               string
 	Name               string
 	RoomPlayerLimitNum int32
 	ChatChannel        chan string
 	Players            []RoomPlayer
-	State              int
+	State              int32
 	Timer              []interface{}
 	Lock               *sync.RWMutex
 }
