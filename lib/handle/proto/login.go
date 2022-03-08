@@ -41,6 +41,8 @@ func (l *Login) Handle(ctx context.Context, data []byte) {
 	b, err := codec.Instance().Encode(ret)
 	if err != nil {
 		log.Errorf("encode error: %s", err)
+	} else {
+		send.SendTo(p.Other.Conn, b)
 	}
-	send.SendTo(p.Other.Conn, b)
+
 }

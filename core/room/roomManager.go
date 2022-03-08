@@ -6,15 +6,15 @@ import (
 )
 
 type RoomManager struct {
-	rooms map[string]map[string]*Room
+	rooms map[string]map[int32]*Room
 	ctx   context.Context
 	Lock  *sync.RWMutex
 }
 
 type IRoomManager interface {
 	CreateRoom(roomName, roomType string) *Room
-	DestroyRoom(roomName string)
-	GetRoomList(roomType string) map[string]*Room
+	DestroyRoom(roomType string, roomId int32)
+	GetRoomList(roomType string) map[int32]*Room
 }
 
 var RoomManagerInstance *RoomManager
@@ -23,7 +23,7 @@ var once sync.Once
 func NewRoomManager() IRoomManager {
 	once.Do(func() {
 		RoomManagerInstance = &RoomManager{
-			rooms: make(map[string]map[string]*Room),
+			rooms: make(map[string]map[int32]*Room),
 			Lock:  new(sync.RWMutex),
 			ctx:   context.Background(),
 		}
@@ -36,18 +36,18 @@ func (rm *RoomManager) CreateRoom(roomName, roomType string) *Room {
 	defer rm.Lock.Unlock()
 	// ctx, cancel := context.WithCancel(rm.ctx)
 	room := NewRoom(roomName, roomType, rm.ctx)
-	rm.rooms[roomType][roomName] = room
+	rm.rooms[roomType][room.Id] = room
 	go room.Run()
 	return room
 }
 
-func (rm *RoomManager) DestroyRoom(roomName string) {
+func (rm *RoomManager) DestroyRoom(roomType string, roomId int32) {
 	rm.Lock.Lock()
 	defer rm.Lock.Unlock()
-	delete(rm.rooms, roomName)
+	delete(rm.rooms[roomType], roomId)
 }
 
-func (rm *RoomManager) GetRoomList(roomType string) map[string]*Room {
+func (rm *RoomManager) GetRoomList(roomType string) map[int32]*Room {
 	rm.Lock.RLock()
 	defer rm.Lock.RUnlock()
 	return rm.rooms[roomType]

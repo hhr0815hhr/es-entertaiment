@@ -3,9 +3,9 @@ package room
 import (
 	"context"
 	"errors"
-	"es-entertainment/common"
 	"fmt"
 	"sync"
+	"sync/atomic"
 )
 
 type Room struct {
@@ -14,47 +14,59 @@ type Room struct {
 	Name               string
 	RoomPlayerLimitNum int32
 	ChatChannel        chan string
-	Players            []RoomPlayer
+	Players            []*RoomPlayer
 	State              int32
 	Timer              []interface{}
 	Lock               *sync.RWMutex
 }
 
 type IRoom interface {
-	Join(player interface{}) error
-	Leave(player interface{}) error
+	Join(playerId int64) error
+	Leave(playerId int64) error
 	Run()
-	Ready(player interface{}) error
+	Ready(playerId int64) error
 }
 
+var id uint32 = 100000
+
 func NewRoom(roomName, roomType string, ctx context.Context) *Room {
+	atomic.AddUint32(&id, 1)
 	return &Room{
+		Id:      int32(id),
+		Type:    roomType,
+		Name:    roomName,
+		Players: make([]*RoomPlayer, 0),
 		// RoomPlayerLimitNum: 2,
 		ChatChannel: make(chan string, 500),
 	}
 }
 
-func (r *Room) Join(player interface{}) error {
+func (r *Room) Join(playerId int64) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
-	if ok, _ := common.Contain(player, r.Players); ok {
-		return errors.New("player already in room")
+	for _, v := range r.Players {
+		if v.PlayerId == playerId {
+			return errors.New("player already in room")
+		}
 	}
+
 	if len(r.Players) >= int(r.RoomPlayerLimitNum) {
 		return errors.New("room is full")
 	}
-	r.Players = append(r.Players, player.(RoomPlayer))
+	roomPlayerInfo := initRoomPlayer(playerId)
+	r.Players = append(r.Players, roomPlayerInfo)
 	return nil
 }
 
-func (r *Room) Leave(player interface{}) error {
+func (r *Room) Leave(playerId int64) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
-	if ok, _ := common.Contain(player, r.Players); !ok {
-		return errors.New("player not in room")
-	}
+
+	// if ok, _ := common.Contain(player, r.Players); !ok {
+	// 	return errors.New("player not in room")
+	// }
 	for i, p := range r.Players {
-		if p == player {
+		if p.PlayerId == playerId {
 			r.Players = append(r.Players[:i], r.Players[i+1:]...)
 			break
 		}
@@ -62,7 +74,7 @@ func (r *Room) Leave(player interface{}) error {
 	return nil
 }
 
-func (r *Room) Ready(player interface{}) error {
+func (r *Room) Ready(player int64) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
 	return nil

@@ -62,6 +62,32 @@ func (l *CreateRoom) Handle(ctx context.Context, data []byte) {
 	}
 }
 
+type EnterRoom struct{}
+
+func (r *EnterRoom) Handle(ctx context.Context, data []byte) {
+	pp := &protos.C2S_EnterRoom{}
+	codec.Instance().Decode(data, pp)
+	ret := &protos.S2C_EnterRoom{}
+	player_id := ctx.Value("value").(map[string]interface{})["playerId"].(int64)
+	if room, ok := game.LobbyInstance.GetRooms(pp.RoomType)[pp.RoomId]; ok {
+		err := room.Join(player_id)
+		if err != nil {
+			log.Errorf("join room error: %s", err)
+			ret.Code = 1
+		} else {
+			ret.Code = 0
+		}
+	} else {
+		ret.Code = 1
+	}
+	b, err := codec.Instance().Encode(ret)
+	if err != nil {
+		log.Errorf("encode error: %s", err)
+	} else {
+		send.SendToUid(player_id, b)
+	}
+}
+
 type Ready struct{}
 
 func (r *Ready) Handle(ctx context.Context, data []byte) {

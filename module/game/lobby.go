@@ -27,7 +27,7 @@ func InitLobby() {
 	log.Info("init lobby success...")
 }
 
-func (l *Lobby) GetRooms(roomType string) map[string]*room.Room {
+func (l *Lobby) GetRooms(roomType string) map[int32]*room.Room {
 	return l.RoomManager.GetRoomList(roomType)
 }
 

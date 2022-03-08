@@ -25,7 +25,8 @@ message S2C_CreateRoom {
 }
 
 message C2S_EnterRoom {
-    string RoomId = 1;
+    int32 RoomId = 1;
+    string RoomType = 2;
 }
 
 message S2C_EnterRoom {
