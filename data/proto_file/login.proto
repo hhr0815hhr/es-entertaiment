@@ -1,6 +1,5 @@
 syntax = "proto3";
-
-package proto;
+package protos;
 
 message C2S_Login {
     string username = 1;

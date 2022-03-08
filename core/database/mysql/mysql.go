@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"es-entertainment/core/log"
 	"fmt"
 	"sync"
 
@@ -51,7 +52,7 @@ func InitDB(master, slaver interface{}) {
 			pool["master"] = dbS
 		}
 	})
-	fmt.Println("init db success...")
+	log.Info("init db success...")
 }
 
 func GetDB(db string) *gorm.DB {

@@ -1,6 +1,8 @@
 package protobuf
 
-import "es-entertainment/common"
+import (
+	"github.com/golang/protobuf/proto"
+)
 
 type ProtobufCodeC struct{}
 
@@ -9,19 +11,13 @@ func NewCodeC() *ProtobufCodeC {
 }
 
 func (jc *ProtobufCodeC) Encode(data interface{}) ([]byte, error) {
-	return nil, nil
+	return proto.Marshal(data.(proto.Message))
 }
 
 func (jc *ProtobufCodeC) Decode(data []byte, v interface{}) error {
-	//解码4字节的cmd 大端序
-	cmd := common.BytesToInt(data[:4])
-	data = data[4:]
 
-	// name := "logon.SearchRequest"
-	// pt := proto.MessageType(name)
-	// a := reflect.New(pt.Elem()).Interface().(proto.Message)
-	// proto.Unmarshal(dst, a)
-	// fmt.Printf("方式二 ：unmarshaled message: %v\n", a)
-
-	return nil
+	//proto
+	// reflect.TypeOf(v)
+	// proto.MessageName(v)
+	return proto.Unmarshal(data, v.(proto.Message))
 }

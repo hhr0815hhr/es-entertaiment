@@ -1,0 +1,34 @@
+syntax="proto3";
+package protos;
+
+message C2S_CreateRoom {
+    string RoomType = 1;
+    string RoomName = 2;
+}
+
+message S2C_CreateRoom {
+    int32 code = 1;
+}
+
+message C2S_EnterRoom {
+    string RoomId = 1;
+}
+
+message S2C_EnterRoom {
+    int32 code = 1;
+}
+
+message C2S_LeaveRoom {
+}
+
+message S2C_LeaveRoom {
+    int32 code = 1;
+}
+
+message C2S_Ready {
+}
+
+message S2C_Ready {
+    int32 code = 1;
+}
+

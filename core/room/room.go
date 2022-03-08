@@ -14,7 +14,7 @@ type Room struct {
 	Name               string
 	RoomPlayerLimitNum int32
 	ChatChannel        chan string
-	Players            []interface{}
+	Players            []RoomPlayer
 	State              int
 	Timer              []interface{}
 	Lock               *sync.RWMutex
@@ -24,6 +24,7 @@ type IRoom interface {
 	Join(player interface{}) error
 	Leave(player interface{}) error
 	Run()
+	Ready(player interface{}) error
 }
 
 func NewRoom(roomName, roomType string, ctx context.Context) *Room {
@@ -36,20 +37,20 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 func (r *Room) Join(player interface{}) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
-	if common.InSlice(player, r.Players) {
+	if ok, _ := common.Contain(player, r.Players); ok {
 		return errors.New("player already in room")
 	}
 	if len(r.Players) >= int(r.RoomPlayerLimitNum) {
 		return errors.New("room is full")
 	}
-	r.Players = append(r.Players, player)
+	r.Players = append(r.Players, player.(RoomPlayer))
 	return nil
 }
 
 func (r *Room) Leave(player interface{}) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
-	if !common.InSlice(player, r.Players) {
+	if ok, _ := common.Contain(player, r.Players); !ok {
 		return errors.New("player not in room")
 	}
 	for i, p := range r.Players {
@@ -58,6 +59,12 @@ func (r *Room) Leave(player interface{}) error {
 			break
 		}
 	}
+	return nil
+}
+
+func (r *Room) Ready(player interface{}) error {
+	r.Lock.Lock()
+	defer r.Lock.Unlock()
 	return nil
 }
 
@@ -71,12 +78,15 @@ func (r *Room) Run() {
 
 func (r *Room) chat(wg *sync.WaitGroup) {
 	defer wg.Done()
-	for {
-		select {
-		case msg := <-r.ChatChannel:
-			fmt.Println(msg)
-			// cast(r.Players,msg)
-
-		}
+	for msg := range r.ChatChannel {
+		fmt.Println(msg)
 	}
+	// for {
+	// 	select {
+	// 	case msg := <-r.ChatChannel:
+
+	// 		// cast(r.Players,msg)
+
+	// 	}
+	// }
 }

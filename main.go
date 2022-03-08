@@ -3,7 +3,9 @@ package main
 import (
 	"es-entertainment/conf"
 	"es-entertainment/core/database/mysql"
+	"es-entertainment/core/log"
 	cs "es-entertainment/core/server"
+	"es-entertainment/lib/player"
 	"es-entertainment/module/game"
 	"es-entertainment/module/server"
 	"flag"
@@ -29,7 +31,8 @@ func main() {
 }
 
 func initModules(cfg conf.Config) {
+	log.InitLogger()
 	mysql.InitDB(cfg.Mysql["master"], cfg.Mysql["slave"])
 	game.InitLobby()
-	// player.InitPlayer()
+	player.InitPlayer()
 }

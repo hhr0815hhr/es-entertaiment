@@ -2,6 +2,7 @@ package conf
 
 import (
 	"es-entertainment/core/database/mysql"
+
 	"es-entertainment/core/database/redis"
 
 	"github.com/spf13/viper"

@@ -2,8 +2,8 @@ package game
 
 import (
 	"es-entertainment/common"
+	"es-entertainment/core/log"
 	"es-entertainment/core/room"
-	"fmt"
 	"sync"
 )
 
@@ -24,7 +24,7 @@ func InitLobby() {
 		LobbyChatChannel: make(chan string, 1000),
 	}
 	go lobbyChat(LobbyInstance)
-	fmt.Println("init lobby success...")
+	log.Info("init lobby success...")
 }
 
 func (l *Lobby) GetRooms(roomType string) map[string]*room.Room {
@@ -55,16 +55,19 @@ func (l *Lobby) LeaveLobby(player interface{}) error {
 
 func lobbyChat(lobby *Lobby) {
 	common.RunNoPanic(func() {
-		for {
-			select {
-			case msg := <-lobby.LobbyChatChannel:
-				fmt.Println("大厅推送消息：", msg)
-				//对所有大厅玩家推送消息
-				// for k, v := range lobby.Players {
-				// 	fmt.Println(k, v)
-				// 	//v.conn.Write([]byte(msg))
-				// }
-			}
+		for msg := range lobby.LobbyChatChannel {
+			log.Infof("大厅推送消息：%s", msg)
 		}
+		// for {
+		// 	select {
+		// 	case msg := <-lobby.LobbyChatChannel:
+		// 		log.Infof("大厅推送消息：%s", msg)
+		// 		//对所有大厅玩家推送消息
+		// 		// for k, v := range lobby.Players {
+		// 		// 	fmt.Println(k, v)
+		// 		// 	//v.conn.Write([]byte(msg))
+		// 		// }
+		// 	}
+		// }
 	})
 }
