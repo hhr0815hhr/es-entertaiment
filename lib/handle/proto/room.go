@@ -31,7 +31,7 @@ func (l *RoomList) Handle(ctx context.Context, data []byte) {
 	if err != nil {
 		log.Errorf("encode error: %s", err)
 	} else {
-		send.SendToUid(ctx.Value("value").(map[string]interface{})["playerId"].(int64), b)
+		send.SendToUid(ctx.Value("value").(map[string]interface{})["playerId"].(int64), b, int32(protos.CmdType_CMD_S2C_RoomList))
 	}
 
 }
@@ -58,7 +58,7 @@ func (l *CreateRoom) Handle(ctx context.Context, data []byte) {
 	if err != nil {
 		log.Errorf("encode error: %s", err)
 	} else {
-		send.SendToUid(player_id, b)
+		send.SendToUid(player_id, b, int32(protos.CmdType_CMD_S2C_CreateRoom))
 	}
 }
 
@@ -84,8 +84,16 @@ func (r *EnterRoom) Handle(ctx context.Context, data []byte) {
 	if err != nil {
 		log.Errorf("encode error: %s", err)
 	} else {
-		send.SendToUid(player_id, b)
+		send.SendToUid(player_id, b, int32(protos.CmdType_CMD_S2C_EnterRoom))
 	}
+}
+
+type LeaveRoom struct{}
+
+func (r *LeaveRoom) Handle(ctx context.Context, data []byte) {
+	pp := &protos.C2S_LeaveRoom{}
+	codec.Instance().Decode(data, pp)
+
 }
 
 type Ready struct{}

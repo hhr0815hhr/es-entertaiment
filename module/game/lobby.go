@@ -4,11 +4,12 @@ import (
 	"es-entertainment/common"
 	"es-entertainment/core/log"
 	"es-entertainment/core/room"
+	"es-entertainment/module/data/player"
 	"sync"
 )
 
 type Lobby struct {
-	Players          map[int]interface{} //sync.Map
+	Players          map[int64]interface{} //sync.Map
 	RoomManager      room.IRoomManager
 	Lock             *sync.RWMutex
 	LobbyChatChannel chan string
@@ -18,7 +19,7 @@ var LobbyInstance *Lobby
 
 func InitLobby() {
 	LobbyInstance = &Lobby{
-		Players:          make(map[int]interface{}),
+		Players:          make(map[int64]interface{}),
 		RoomManager:      room.NewRoomManager(),
 		Lock:             new(sync.RWMutex),
 		LobbyChatChannel: make(chan string, 1000),
@@ -31,25 +32,26 @@ func (l *Lobby) GetRooms(roomType string) map[int32]*room.Room {
 	return l.RoomManager.GetRoomList(roomType)
 }
 
-func (l *Lobby) GetPlayers() map[int]interface{} {
+func (l *Lobby) GetPlayers() map[int64]interface{} {
 	return l.Players
 }
 
-func (l *Lobby) EnterLobby(player interface{}) error {
-	id := 2 //player.(*Player).GetId()
+func (l *Lobby) EnterLobby(p interface{}) error {
+	info := p.(*player.Player) //player.(*Player).GetId()
+
 	l.Lock.Lock()
 	defer l.Lock.Unlock()
-	l.Players[id] = player
-	l.LobbyChatChannel <- "欢迎玩家进入大厅"
+	l.Players[info.Id] = info
+	l.LobbyChatChannel <- "欢迎玩家:" + info.Nick + "进入大厅"
 	return nil
 }
 
-func (l *Lobby) LeaveLobby(player interface{}) error {
-	id := 2 //player.(*Player).GetId()
+func (l *Lobby) LeaveLobby(p interface{}) error {
+	info := p.(*player.Player)
 	l.Lock.Lock()
 	defer l.Lock.Unlock()
-	delete(l.Players, id)
-	l.LobbyChatChannel <- "玩家离开大厅"
+	delete(l.Players, info.Id)
+	l.LobbyChatChannel <- "玩家" + info.Nick + "离开大厅"
 	return nil
 }
 

@@ -1,0 +1,20 @@
+syntax="proto3";
+package protos;
+
+enum CmdType {
+    CmdType_None = 0;
+    CMD_S2C_Login = 10000;
+	CMD_C2S_Login = 10001;
+
+	CMD_S2C_CreateRoom = 20000;
+	CMD_C2S_CreateRoom = 20001;
+    CMD_S2C_EnterRoom = 20002;
+    CMD_C2S_EnterRoom = 20003;
+    CMD_S2C_LeaveRoom = 20004;
+    CMD_C2S_LeaveRoom = 20005;
+    CMD_S2C_RoomList = 20006;
+    CMD_C2S_RoomList = 20007;
+    CMD_S2C_Ready = 20008;
+    CMD_C2S_Ready = 20009;
+
+}

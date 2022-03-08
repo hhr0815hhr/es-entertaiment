@@ -15,5 +15,7 @@ type Player struct {
 }
 
 type PlayerOther struct {
-	Conn *websocket.Conn
+	Conn         *websocket.Conn
+	Position     int // 当前所在场景 0：大厅  10001：房间号
+	PositionType string
 }

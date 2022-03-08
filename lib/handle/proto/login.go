@@ -33,7 +33,7 @@ func (l *Login) Handle(ctx context.Context, data []byte) {
 
 		//playerId 存入 ctx
 		ctx.Value("value").(map[string]interface{})["playerId"] = p.Id
-		game.LobbyInstance.EnterLobby(p.Nick)
+		game.LobbyInstance.EnterLobby(p)
 		ret.Code = 0
 	} else {
 		ret.Code = 1
@@ -42,7 +42,7 @@ func (l *Login) Handle(ctx context.Context, data []byte) {
 	if err != nil {
 		log.Errorf("encode error: %s", err)
 	} else {
-		send.SendTo(p.Other.Conn, b)
+		send.SendTo(p.Other.Conn, b, int32(protos.CmdType_CMD_S2C_Login))
 	}
 
 }

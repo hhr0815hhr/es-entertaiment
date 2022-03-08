@@ -4,6 +4,7 @@ import (
 	"context"
 	"es-entertainment/common"
 	"es-entertainment/lib/handle/proto"
+	"es-entertainment/protos"
 	"fmt"
 )
 
@@ -23,9 +24,12 @@ var (
 func init() {
 	//初始化dispatch map
 	route = make(map[int]IDispatch)
-	route[10001] = &proto.Login{}
-	route[20000] = &proto.RoomList{}
-	route[20001] = &proto.CreateRoom{}
+	route[int(protos.CmdType_CMD_C2S_Login)] = &proto.Login{}
+	route[int(protos.CmdType_CMD_C2S_RoomList)] = &proto.RoomList{}
+	route[int(protos.CmdType_CMD_C2S_CreateRoom)] = &proto.CreateRoom{}
+	route[int(protos.CmdType_CMD_C2S_EnterRoom)] = &proto.EnterRoom{}
+	route[int(protos.CmdType_CMD_C2S_LeaveRoom)] = &proto.LeaveRoom{}
+	route[int(protos.CmdType_CMD_C2S_Ready)] = &proto.Ready{}
 
 }
 
