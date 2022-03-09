@@ -6,11 +6,19 @@ import (
 
 //room logic can be treated as a fsm
 
-type F struct {
+type Fsm struct {
 	Name string
 	FSM  *fsm.FSM
 }
 
-func initFsm() {
+func initFsm(name string, f *fsm.FSM) *Fsm {
+	return &Fsm{
+		Name: name,
+		FSM:  f,
+	}
+}
 
+
+func getFsm(roomType string) *fsm.FSM {
+	return &fsm.FSM{}
 }

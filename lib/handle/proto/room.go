@@ -54,7 +54,6 @@ func (l *CreateRoom) Handle(ctx context.Context, data []byte) {
 
 	b, _ := codec.Instance().Encode(ret)
 
-	//todo broadCast to lobby player
 	r.Cast(player_id, int32(protos.CmdType_CMD_S2C_CreateRoom), b)
 }
 

@@ -20,7 +20,8 @@ type Room struct {
 	eventChannel       chan string
 	Players            []*RoomPlayer
 	State              int32
-	Timer              []interface{}
+	Ticker             []interface{}
+	F                  *Fsm
 	Lock               *sync.RWMutex
 }
 
@@ -37,6 +38,7 @@ var id uint32 = 100000
 
 func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 	atomic.AddUint32(&id, 1)
+
 	return &Room{
 		Id:      int32(id),
 		Type:    roomType,
@@ -46,8 +48,10 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 		// RoomPlayerLimitNum: 2,
 		ChatChannel:  make(chan *chat.Chat, 500),
 		eventChannel: make(chan string, 1),
+		F:            initFsm(roomType, getFsm(roomType)), //注入fsm,
 	}
 }
+
 
 func (r *Room) Cast(playerId int64, cmd int32, msg []byte) {
 	send.SendToUid(playerId, msg, cmd)
@@ -117,7 +121,10 @@ func (r *Room) running(wg *sync.WaitGroup) {
 	for x := range r.eventChannel {
 		switch x {
 		case "start":
+			//启动game ticker
+			//timer和event共同驱动fsm
 		case "stop":
+			//关闭game ticker
 		default:
 			log.Fatalf("unknown event: %s", x)
 		}
