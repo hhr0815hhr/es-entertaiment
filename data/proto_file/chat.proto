@@ -1,6 +1,13 @@
 syntax="proto3";
 package protos;
 
+enum ChatChannel {
+    Lobby    = 0;       //"lobby"
+	Cow      = 1;        //"cow"
+	Landlord = 2;        //"landlord"
+	Gomoku   = 3;        //"gomoku"
+}
+
 message C2S_Chat {
     string msg = 1;
     int32  channel = 2;

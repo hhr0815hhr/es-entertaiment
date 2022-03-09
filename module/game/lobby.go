@@ -5,6 +5,7 @@ import (
 	"es-entertainment/core/codec"
 	"es-entertainment/core/log"
 	"es-entertainment/core/room"
+	"es-entertainment/lib/chat"
 	"es-entertainment/lib/send"
 	"es-entertainment/module/data/player"
 	"es-entertainment/protos"
@@ -16,19 +17,13 @@ type Lobby struct {
 	Players          map[int64]*LobbyPlayer //sync.Map
 	RoomManager      room.IRoomManager
 	Lock             *sync.RWMutex
-	LobbyChatChannel chan *LobbyChat
+	LobbyChatChannel chan *chat.Chat
 }
 
 type LobbyPlayer struct {
 	Id   int64
 	Nick string
 	Icon string
-}
-
-type LobbyChat struct {
-	From int64
-	Msg  string
-	Time int64
 }
 
 var LobbyInstance *Lobby
@@ -38,7 +33,7 @@ func InitLobby() {
 		Players:          make(map[int64]*LobbyPlayer),
 		RoomManager:      room.NewRoomManager(),
 		Lock:             new(sync.RWMutex),
-		LobbyChatChannel: make(chan *LobbyChat, 1000),
+		LobbyChatChannel: make(chan *chat.Chat, 1000),
 	}
 	go lobbyChat(LobbyInstance)
 	log.Info("init lobby success...")
@@ -70,7 +65,7 @@ func (l *Lobby) EnterLobby(p interface{}) error {
 	l.Lock.Lock()
 	defer l.Lock.Unlock()
 	l.Players[info.Id] = lobbyPlayer
-	msg := &LobbyChat{
+	msg := &chat.Chat{
 		From: 0,
 		Msg:  "玩家:" + info.Nick + "进入大厅",
 		Time: time.Now().Unix(),
@@ -79,7 +74,7 @@ func (l *Lobby) EnterLobby(p interface{}) error {
 	return nil
 }
 
-func (l *Lobby) BroadCast(msg *LobbyChat) {
+func (l *Lobby) BroadCast(msg *chat.Chat) {
 	pb := &protos.S2C_Chat{
 		From:    msg.From,
 		Msg:     msg.Msg,
@@ -95,7 +90,7 @@ func (l *Lobby) LeaveLobby(p interface{}) error {
 	l.Lock.Lock()
 	defer l.Lock.Unlock()
 	delete(l.Players, info.Id)
-	msg := &LobbyChat{
+	msg := &chat.Chat{
 		From: 0,
 		Msg:  "玩家:" + info.Nick + "离开大厅",
 		Time: time.Now().Unix(),
