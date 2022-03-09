@@ -3,8 +3,10 @@ package room
 import (
 	"context"
 	"errors"
+	"es-entertainment/lib/chat"
 	"es-entertainment/lib/send"
 	"fmt"
+	"log"
 	"sync"
 	"sync/atomic"
 )
@@ -14,7 +16,8 @@ type Room struct {
 	Type               string
 	Name               string
 	RoomPlayerLimitNum int32
-	ChatChannel        chan string
+	ChatChannel        chan *chat.Chat
+	eventChannel       chan string
 	Players            []*RoomPlayer
 	State              int32
 	Timer              []interface{}
@@ -39,8 +42,10 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 		Type:    roomType,
 		Name:    roomName,
 		Players: make([]*RoomPlayer, 0),
+		State:   0,
 		// RoomPlayerLimitNum: 2,
-		ChatChannel: make(chan string, 500),
+		ChatChannel:  make(chan *chat.Chat, 500),
+		eventChannel: make(chan string, 1),
 	}
 }
 
@@ -101,10 +106,23 @@ func (r *Room) Ready(player int64) error {
 
 func (r *Room) Run() {
 	wg := new(sync.WaitGroup)
-	wg.Add(1)
+	wg.Add(2)
 	go r.chat(wg) // 开启聊天协程
-
+	go r.running(wg)
 	wg.Wait()
+}
+
+func (r *Room) running(wg *sync.WaitGroup) {
+	defer wg.Done()
+	for x := range r.eventChannel {
+		switch x {
+		case "start":
+		case "stop":
+		default:
+			log.Fatalf("unknown event: %s", x)
+		}
+	}
+
 }
 
 func (r *Room) chat(wg *sync.WaitGroup) {

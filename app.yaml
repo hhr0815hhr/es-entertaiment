@@ -16,7 +16,7 @@ mysql:
     port: 3306
     user: root
     pass: root
-    db:   test_m
+    db:   test
     maxIdleConns: 10
     maxOpenConns: 100
   slaver:
@@ -24,6 +24,6 @@ mysql:
     port: 3306
     user: root
     pass: root
-    db:   test_s
+    db:   test
     maxIdleConns: 10
     maxOpenConns: 100
