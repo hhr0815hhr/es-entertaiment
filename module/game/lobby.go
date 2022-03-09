@@ -5,6 +5,7 @@ import (
 	"es-entertainment/core/log"
 	"es-entertainment/core/room"
 	"es-entertainment/module/data/player"
+	"fmt"
 	"sync"
 )
 
@@ -58,7 +59,7 @@ func (l *Lobby) LeaveLobby(p interface{}) error {
 func lobbyChat(lobby *Lobby) {
 	common.RunNoPanic(func() {
 		for msg := range lobby.LobbyChatChannel {
-			log.Infof("大厅推送消息：%s", msg)
+			fmt.Printf("大厅推送消息：%s", msg)
 		}
 		// for {
 		// 	select {

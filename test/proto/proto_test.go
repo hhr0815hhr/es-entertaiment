@@ -1,7 +1,9 @@
 package proto
 
 import (
+	"es-entertainment/core/codec"
 	"es-entertainment/protos"
+	"fmt"
 	"testing"
 )
 
@@ -14,9 +16,15 @@ type L struct {
 func TestProto(t *testing.T) {
 
 	// a := "protos.C2S_Login"
-	l := &Login{}
-	interface{}(l).(*protos.C2S_Login).Marshal()
-
-	l2 := &L{}
-	l2.C.Marshal()
+	a := &protos.C2S_CreateRoom{
+		RoomName: "test",
+		RoomType: "cow",
+	}
+	fmt.Println(a)
+	ab, _ := codec.Instance().Encode(a)
+	fmt.Println(ab)
+	c := &protos.C2S_CreateRoom{}
+	codec.Instance().Decode(ab, c)
+	fmt.Println(c)
+	t.Errorf("%v", c == a)
 }
