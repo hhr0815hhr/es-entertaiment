@@ -3,6 +3,7 @@ package room
 import (
 	"context"
 	"errors"
+	"es-entertainment/lib/send"
 	"fmt"
 	"sync"
 	"sync/atomic"
@@ -25,6 +26,8 @@ type IRoom interface {
 	Leave(playerId int64) error
 	Run()
 	Ready(playerId int64) error
+	Cast(playerId int64, cmd int32, msg []byte)
+	Broadcast(cmd int32, msg []byte)
 }
 
 var id uint32 = 100000
@@ -41,6 +44,20 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 	}
 }
 
+func (r *Room) Cast(playerId int64, cmd int32, msg []byte) {
+	send.SendToUid(playerId, msg, cmd)
+}
+
+func (r *Room) Broadcast(cmd int32, msg []byte) {
+	r.Lock.RLock()
+	defer r.Lock.RUnlock()
+	uids := make([]int64, 0)
+	for _, v := range r.Players {
+		uids = append(uids, v.PlayerId)
+	}
+	send.SendToUids(uids, msg, cmd)
+}
+
 func (r *Room) Join(playerId int64) error {
 	r.Lock.Lock()
 	defer r.Lock.Unlock()
@@ -55,6 +72,8 @@ func (r *Room) Join(playerId int64) error {
 	}
 	roomPlayerInfo := initRoomPlayer(playerId)
 	r.Players = append(r.Players, roomPlayerInfo)
+	//退出大厅
+	// game.LobbyInstance.LeaveLobby(playerId)
 	return nil
 }
 

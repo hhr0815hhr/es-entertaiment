@@ -31,19 +31,26 @@ message C2S_EnterRoom {
 
 message S2C_EnterRoom {
     int32 code = 1;
+    int64 playerId = 2;
 }
 
 message C2S_LeaveRoom {
+    int32 RoomId = 1;
+    string RoomType = 2;
 }
 
 message S2C_LeaveRoom {
     int32 code = 1;
+    int64 playerId = 2;
 }
 
 message C2S_Ready {
+    int32 roomId = 1;
+    string roomType = 2;
 }
 
 message S2C_Ready {
     int32 code = 1;
+    int64 playerId = 2;
 }
 

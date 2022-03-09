@@ -19,3 +19,10 @@ type PlayerOther struct {
 	Position     int // 当前所在场景 0：大厅  10001：房间号
 	PositionType string
 }
+
+const (
+	Position_Lobby    = iota //"lobby"
+	Position_Cow             //"cow"
+	Position_Landlord        //"landlord"
+	Position_Gomoku          //"gomoku"
+)

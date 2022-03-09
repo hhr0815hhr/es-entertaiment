@@ -1,0 +1,15 @@
+syntax="proto3";
+package protos;
+
+message C2S_Chat {
+    string msg = 1;
+    int32  channel = 2;
+    int64 time = 3;
+}
+
+message S2C_Chat {
+    string msg = 1;
+    int32  channel = 2;
+    int64 time = 3;
+    int64 from = 4;
+}

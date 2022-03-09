@@ -43,6 +43,7 @@ func SumSlice(list []int) int {
 }
 
 func ShuffleSlice(s []int) {
+	// r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	rand.Seed(time.Now().UnixNano())
 	for i := len(s) - 1; i > 0; i-- {
 		j := rand.Intn(i + 1)

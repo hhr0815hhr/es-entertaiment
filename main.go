@@ -9,6 +9,8 @@ import (
 	"es-entertainment/module/game"
 	"es-entertainment/module/server"
 	"flag"
+	"os"
+	"os/signal"
 )
 
 var (
@@ -24,10 +26,18 @@ func main() {
 	flag.Parse()
 	cfg := conf.GetConf()
 	initModules(cfg)
-	err := server.Run(serverType, cfg)
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err := server.Run(serverType, cfg)
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	sigChan := make(chan os.Signal, 1)
+
+	signal.Notify(sigChan, os.Interrupt)
+	<-sigChan
+	log.Info("server stop...")
 }
 
 func initModules(cfg conf.Config) {

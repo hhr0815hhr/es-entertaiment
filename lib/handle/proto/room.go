@@ -15,7 +15,7 @@ type RoomList struct {
 func (l *RoomList) Handle(ctx context.Context, data []byte) {
 	pp := &protos.C2S_RoomList{}
 	codec.Instance().Decode(data, pp)
-	list := game.LobbyInstance.RoomManager.GetRoomList(pp.RoomType)
+	list := game.LobbyInstance.GetRooms(pp.RoomType)
 	roomList := make([]*protos.RoomInfo, 0)
 	for x := range list {
 		roomList = append(roomList, &protos.RoomInfo{
@@ -27,12 +27,9 @@ func (l *RoomList) Handle(ctx context.Context, data []byte) {
 	msg := &protos.S2C_RoomList{
 		RoomList: roomList,
 	}
-	b, err := codec.Instance().Encode(msg)
-	if err != nil {
-		log.Errorf("encode error: %s", err)
-	} else {
-		send.SendToUid(ctx.Value("value").(map[string]interface{})["playerId"].(int64), b, int32(protos.CmdType_CMD_S2C_RoomList))
-	}
+	b, _ := codec.Instance().Encode(msg)
+
+	send.SendToUid(ctx.Value("value").(map[string]interface{})["playerId"].(int64), b, int32(protos.CmdType_CMD_S2C_RoomList))
 
 }
 
@@ -52,14 +49,13 @@ func (l *CreateRoom) Handle(ctx context.Context, data []byte) {
 		ret.Code = 1
 	} else {
 		ret.Code = 0
+		game.LobbyInstance.LeaveLobby(player_id)
 	}
-	var b []byte
-	b, err = codec.Instance().Encode(ret)
-	if err != nil {
-		log.Errorf("encode error: %s", err)
-	} else {
-		send.SendToUid(player_id, b, int32(protos.CmdType_CMD_S2C_CreateRoom))
-	}
+
+	b, _ := codec.Instance().Encode(ret)
+
+	//todo broadCast to lobby player
+	r.Cast(player_id, int32(protos.CmdType_CMD_S2C_CreateRoom), b)
 }
 
 type EnterRoom struct{}
@@ -67,22 +63,26 @@ type EnterRoom struct{}
 func (r *EnterRoom) Handle(ctx context.Context, data []byte) {
 	pp := &protos.C2S_EnterRoom{}
 	codec.Instance().Decode(data, pp)
-	ret := &protos.S2C_EnterRoom{}
 	player_id := ctx.Value("value").(map[string]interface{})["playerId"].(int64)
-	if room, ok := game.LobbyInstance.GetRooms(pp.RoomType)[pp.RoomId]; ok {
-		err := room.Join(player_id)
-		if err != nil {
-			log.Errorf("join room error: %s", err)
-			ret.Code = 1
-		} else {
-			ret.Code = 0
-		}
-	} else {
-		ret.Code = 1
+	ret := &protos.S2C_EnterRoom{
+		Code:     0,
+		PlayerId: player_id,
 	}
-	b, err := codec.Instance().Encode(ret)
+
+	room := game.LobbyInstance.RoomManager.GetRoom(pp.RoomId, pp.RoomType)
+
+	err := room.Join(player_id)
 	if err != nil {
-		log.Errorf("encode error: %s", err)
+		log.Errorf("join room error: %s", err)
+		ret.Code = 1
+	} else {
+		ret.Code = 0
+		game.LobbyInstance.LeaveLobby(player_id)
+	}
+
+	b, _ := codec.Instance().Encode(ret)
+	if ret.Code == 0 {
+		room.Broadcast(int32(protos.CmdType_CMD_S2C_EnterRoom), b)
 	} else {
 		send.SendToUid(player_id, b, int32(protos.CmdType_CMD_S2C_EnterRoom))
 	}
@@ -93,12 +93,41 @@ type LeaveRoom struct{}
 func (r *LeaveRoom) Handle(ctx context.Context, data []byte) {
 	pp := &protos.C2S_LeaveRoom{}
 	codec.Instance().Decode(data, pp)
+	player_id := ctx.Value("value").(map[string]interface{})["playerId"].(int64)
+	room := game.LobbyInstance.RoomManager.GetRoom(pp.RoomId, pp.RoomType)
+	err := room.Leave(player_id)
+	ret := &protos.S2C_LeaveRoom{
+		Code:     0,
+		PlayerId: player_id,
+	}
+	if err != nil {
+		ret.Code = 1
+	} else {
+		game.LobbyInstance.EnterLobby(player_id)
+	}
+	b, _ := codec.Instance().Encode(ret)
 
+	send.SendToUid(player_id, b, int32(protos.CmdType_CMD_S2C_LeaveRoom))
+	room.Broadcast(int32(protos.CmdType_CMD_S2C_LeaveRoom), b)
 }
 
 type Ready struct{}
 
 func (r *Ready) Handle(ctx context.Context, data []byte) {
-	// player_id := ctx.Value("value").(map[string]interface{})["player"].(int)
-	// room_id := ctx.Value("value").(map[string]interface{})["room"].(int)
+	pp := &protos.C2S_Ready{}
+	codec.Instance().Decode(data, pp)
+	player_id := ctx.Value("value").(map[string]interface{})["playerId"].(int64)
+	room := game.LobbyInstance.RoomManager.GetRoom(pp.RoomId, pp.RoomType)
+	err := room.Ready(player_id)
+	ret := &protos.S2C_Ready{
+		Code:     0,
+		PlayerId: player_id,
+	}
+	if err != nil {
+		ret.Code = 1
+	}
+
+	b, _ := codec.Instance().Encode(ret)
+
+	room.Broadcast(int32(protos.CmdType_CMD_S2C_Ready), b)
 }

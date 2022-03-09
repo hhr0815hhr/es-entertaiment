@@ -8,9 +8,9 @@ import (
 )
 
 func TestCalcCow(t *testing.T) {
-	poker.InitCards()
-	common.ShuffleSlice(poker.AllCards)
-	cards := poker.AllCards[:5]
+	pokerCopy := poker.InitCards()
+	common.ShuffleSlice(pokerCopy)
+	cards := pokerCopy[:5]
 	haveCow, cowType := c.CalcCow(cards)
 	t.Logf("cards %v,CalcCow got:%v %d", cards, haveCow, cowType)
 

@@ -15,6 +15,7 @@ type IRoomManager interface {
 	CreateRoom(roomName, roomType string) *Room
 	DestroyRoom(roomType string, roomId int32)
 	GetRoomList(roomType string) map[int32]*Room
+	GetRoom(roomId int32, roomType string) *Room
 }
 
 var RoomManagerInstance *RoomManager
@@ -29,6 +30,10 @@ func NewRoomManager() IRoomManager {
 		}
 	})
 	return RoomManagerInstance
+}
+
+func (rm *RoomManager) GetRoom(roomId int32, roomType string) *Room {
+	return rm.GetRoomList(roomType)[roomId]
 }
 
 func (rm *RoomManager) CreateRoom(roomName, roomType string) *Room {

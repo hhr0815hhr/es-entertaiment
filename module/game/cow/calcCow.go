@@ -33,17 +33,17 @@ func CalcCow(cards []int) (haveCow bool, cowType int) {
 	return
 }
 
-func formatCards(cards []int) (cp []int, isFlower bool) {
-	isFlower = true
-	cp = make([]int, 0, 5)
+func formatCards(cards []int) ([]int, bool) {
+	isFlower := true
+	cp := make([]int, 5)
 	copy(cp, cards)
 	for i := 0; i < len(cp); i++ {
-		cards[i] = int(cp[i] / 10)
+		cp[i] = int(cp[i] / 10)
 		if cp[i] >= 10 {
 			cp[i] = 10
 		} else {
 			isFlower = false
 		}
 	}
-	return
+	return cp, isFlower
 }
