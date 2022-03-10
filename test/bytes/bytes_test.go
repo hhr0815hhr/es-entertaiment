@@ -2,6 +2,7 @@ package bytes
 
 import (
 	"es-entertainment/common"
+	"fmt"
 	"testing"
 )
 
@@ -15,5 +16,5 @@ func TestBytes(t *testing.T) {
 	// buf.WriteByte(byte(cmd))
 
 	buf := common.IntToBytes(10001)
-	t.Errorf("%v", buf)
+	fmt.Printf("%v", buf)
 }

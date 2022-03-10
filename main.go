@@ -44,6 +44,6 @@ func initModules(cfg conf.Config) {
 	log.InitLogger()
 	mysql.InitDB(cfg.Mysql["master"], cfg.Mysql["slave"])
 	game.InitLobby()
-	game.InitFsm()
+	// game.InitFsm()
 	player.InitPlayer()
 }

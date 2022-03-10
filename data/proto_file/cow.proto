@@ -1,0 +1,28 @@
+syntax="proto3";
+package protos;
+
+message S2C_Cow_Start {
+    int32 CountDown = 1;
+    int32 State = 2;
+}
+
+message S2C_Cow_Draw {
+    int32 CountDown = 1;
+    int32 State = 2;
+    repeated Cards Cards = 3;
+}
+
+message Cards {
+    repeated int32 Card = 1;
+}
+
+message S2C_Cow_Compare {
+    int32 CountDown = 1;
+    int32 State = 2;
+    repeated string CowType = 3;
+    repeated int32 Result = 4;
+}
+
+message S2C_Cow_Ready {
+    int32 State = 1;
+}

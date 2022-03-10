@@ -3,14 +3,14 @@ package player
 import "github.com/gorilla/websocket"
 
 type Player struct {
-	Id       int64
-	Username string
-	Password string
-	Nick     string
-	Icon     string
-	Coin     int64
-	Level    int
-	Sex      int
+	Id       int64   	`gorm:"primary_key"`
+	Username string		`gorm:"type:varchar(32);unique_index"`
+	Password string		`gorm:"type:varchar(32)"`
+	Nick     string		`gorm:"type:varchar(32)"`
+	Icon     string		`gorm:"type:varchar(32)"`
+	Coin     int64		`gorm:"type:bigint"`
+	Level    int		`gorm:"type:int"`
+	Sex      int		`gorm:"type:int"`
 	Other    PlayerOther
 }
 

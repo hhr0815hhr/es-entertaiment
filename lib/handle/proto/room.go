@@ -117,7 +117,7 @@ func (r *Ready) Handle(ctx context.Context, data []byte) {
 	codec.Instance().Decode(data, pp)
 	player_id := ctx.Value("value").(map[string]interface{})["playerId"].(int64)
 	room := game.LobbyInstance.RoomManager.GetRoom(pp.RoomId, pp.RoomType)
-	err := room.Ready(player_id)
+	err := room.Ready(player_id, int(pp.Ready))
 	ret := &protos.S2C_Ready{
 		Code:     0,
 		PlayerId: player_id,
