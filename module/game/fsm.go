@@ -1,19 +1,18 @@
 package game
 
 import (
+	"es-entertainment/core/log"
+	"es-entertainment/core/room"
+	"es-entertainment/module/game/cow"
+
 	"github.com/looplab/fsm"
 )
 
-type FsmManager struct {
-	fsmMap map[string]*fsm.FSM
+func InitFsm() {
+	room.FsmM = &room.FsmManager{
+		FsmMap: make(map[string]*fsm.FSM),
+	}
+	room.FsmM.RegisterFsm("cow", cow.NewFsm())
+
+	log.Info("init fsm success...")
 }
-
-func (fm *FsmManager) GetFsm(name string) *fsm.FSM {
-	return fm.fsmMap[name]
-}
-
-func (fm *FsmManager) RegisterFsm(name string, f *fsm.FSM) {
-	fm.fsmMap[name] = f
-}
-
-

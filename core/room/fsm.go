@@ -5,20 +5,31 @@ import (
 )
 
 //room logic can be treated as a fsm
-
-type Fsm struct {
-	Name string
-	FSM  *fsm.FSM
+type FsmManager struct {
+	FsmMap map[string]*fsm.FSM
 }
 
-func initFsm(name string, f *fsm.FSM) *Fsm {
-	return &Fsm{
-		Name: name,
-		FSM:  f,
+var FsmM *FsmManager
+
+func (fm *FsmManager) GetFsm(name string) *fsm.FSM {
+	f, ok := fm.FsmMap[name]
+	if !ok {
+		return nil
 	}
+	return f
 }
 
-
-func getFsm(roomType string) *fsm.FSM {
-	return &fsm.FSM{}
+func (fm *FsmManager) RegisterFsm(name string, f *fsm.FSM) {
+	fm.FsmMap[name] = f
 }
+
+// func initFsm(name string, f *fsm.FSM) *Fsm {
+// 	return &Fsm{
+// 		Name: name,
+// 		FSM:  f,
+// 	}
+// }
+
+// func getFsm(roomType string) *fsm.FSM {
+// 	return &fsm.FSM{}
+// }

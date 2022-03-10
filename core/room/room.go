@@ -9,6 +9,8 @@ import (
 	"log"
 	"sync"
 	"sync/atomic"
+
+	"github.com/looplab/fsm"
 )
 
 type Room struct {
@@ -21,7 +23,7 @@ type Room struct {
 	Players            []*RoomPlayer
 	State              int32
 	Ticker             []interface{}
-	F                  *Fsm
+	F                  *fsm.FSM
 	Lock               *sync.RWMutex
 }
 
@@ -48,7 +50,7 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 		// RoomPlayerLimitNum: 2,
 		ChatChannel:  make(chan *chat.Chat, 500),
 		eventChannel: make(chan string, 1),
-		F:            initFsm(roomType, getFsm(roomType)), //注入fsm,
+		F:            FsmM.GetFsm(roomType),
 	}
 }
 
