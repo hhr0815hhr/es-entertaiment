@@ -3,8 +3,10 @@ package room
 import (
 	"context"
 	"errors"
+	"es-entertainment/core/codec"
 	"es-entertainment/lib/chat"
 	"es-entertainment/lib/send"
+	"es-entertainment/protos"
 	"fmt"
 	"sync"
 	"sync/atomic"
@@ -130,11 +132,12 @@ func (r *Room) Ready(player int64, state int) error {
 func (r *Room) Run() {
 	// wg := new(sync.WaitGroup)
 	// wg.Add(1)
-	go r.chat() // 开启聊天协程
+	ctx, cancel := context.WithCancel(context.Background())
+	go r.chat(ctx) // 开启聊天协程
 	// go r.running(wg)
 	// wg.Wait()
 	<-r.CloseChannel
-
+	cancel()
 }
 
 // func (r *Room) running(wg *sync.WaitGroup) {
@@ -153,17 +156,20 @@ func (r *Room) Run() {
 
 // }
 
-func (r *Room) chat() {
+func (r *Room) chat(ctx context.Context) {
 	// defer wg.Done()
+	// defer ctx.Done()
 	for msg := range r.ChatChannel {
 		fmt.Println(msg)
+		ret := &protos.S2C_Chat{
+			From:    msg.From,
+			Msg:     msg.Msg,
+			Time:    msg.Time,
+			Channel: int32(protos.ChatChannel_Cow),
+		}
+		b, _ := codec.Instance().Encode(ret)
+
+		r.Broadcast(int32(protos.CmdType_CMD_S2C_Chat), b)
 	}
-	// for {
-	// 	select {
-	// 	case msg := <-r.ChatChannel:
 
-	// 		// cast(r.Players,msg)
-
-	// 	}
-	// }
 }

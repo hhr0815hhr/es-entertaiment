@@ -29,12 +29,20 @@ func getRoomFsm(roomType string) *RoomFsm {
 	// return
 }
 
+const (
+	CowStateReady = iota
+	CowStateStart
+	CowStateDraw
+	CowStateCompare
+)
+
 func cowFsm() *RoomFsm {
 	f := fsm.NewFSM(
 		"ready",
 		fsm.Events{
 			{Name: "start", Src: []string{"ready"}, Dst: "start"},
-			{Name: "draw", Src: []string{"start"}, Dst: "draw"},
+			{Name: "master", Src: []string{"start"}, Dst: "master"},
+			{Name: "draw", Src: []string{"start", "master"}, Dst: "draw"},
 			{Name: "compare", Src: []string{"draw"}, Dst: "compare"},
 			{Name: "ready", Src: []string{"compare"}, Dst: "ready"},
 		},
@@ -60,7 +68,7 @@ func startCowEvent(e *fsm.Event) {
 	ticker := ro.Tickers["start"]
 	fmt.Printf("进入状态%s", e.Dst)
 
-	ro.State = 1
+	ro.State = CowStateStart
 	ret := &protos.S2C_Cow_Start{
 		CountDown: int32(ticker.Time),
 		State:     ro.State,
@@ -92,6 +100,7 @@ func compareCowEvent(e *fsm.Event) {
 	ticker := ro.Tickers["compare"]
 	fmt.Printf("进入状态%s", e.Dst)
 
+	//比牌
 	ro.State = 3
 	ret := &protos.S2C_Cow_Compare{
 		CountDown: int32(ticker.Time),
@@ -110,7 +119,7 @@ func readyCowEvent(e *fsm.Event) {
 
 	ro.State = 0
 	ret := &protos.S2C_Cow_Ready{
-		State:     ro.State,
+		State: ro.State,
 	}
 	b, _ := codec.Instance().Encode(ret)
 	ro.Broadcast(int32(protos.CmdType_CMD_S2C_Cow_Ready), b)

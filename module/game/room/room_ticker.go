@@ -13,6 +13,10 @@ func cowTicker() map[string]*Ticker {
 		Time:  time.Second * 2,
 		Event: "draw",
 	}
+	tickers["master"] = &Ticker{
+		Time:  time.Second * 3,
+		Event: "draw",
+	}
 	tickers["draw"] = &Ticker{
 		Time:  time.Second * 10,
 		Event: "compare",
