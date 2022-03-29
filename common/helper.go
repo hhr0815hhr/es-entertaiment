@@ -34,15 +34,15 @@ func InSlice(a interface{}, list []interface{}) bool {
 	return false
 }
 
-func SumSlice(list []int) int {
-	sum := 0
+func SumSlice(list []int32) int32 {
+	var sum int32 = 0
 	for _, v := range list {
 		sum += v
 	}
 	return sum
 }
 
-func ShuffleSlice(s []int) {
+func ShuffleSlice(s []int32) {
 	// r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	rand.Seed(time.Now().UnixNano())
 	for i := len(s) - 1; i > 0; i-- {

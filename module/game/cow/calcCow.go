@@ -4,7 +4,7 @@ import (
 	"es-entertainment/common"
 )
 
-func CalcCow(cards []int) (haveCow bool, cowType int) {
+func CalcCow(cards []int32) (haveCow bool, cowType int32) {
 	// length := len(cards)
 	cp, isFlower := formatCards(cards)
 	if isFlower {
@@ -33,12 +33,12 @@ func CalcCow(cards []int) (haveCow bool, cowType int) {
 	return
 }
 
-func formatCards(cards []int) ([]int, bool) {
+func formatCards(cards []int32) ([]int32, bool) {
 	isFlower := true
-	cp := make([]int, 5)
+	cp := make([]int32, 5)
 	copy(cp, cards)
 	for i := 0; i < len(cp); i++ {
-		cp[i] = int(cp[i] / 10)
+		cp[i] = int32(cp[i] / 10)
 		if cp[i] >= 10 {
 			cp[i] = 10
 		} else {
@@ -46,4 +46,32 @@ func formatCards(cards []int) ([]int, bool) {
 		}
 	}
 	return cp, isFlower
+}
+
+func getLargestCard(cards []int32) int32 {
+	var max int32 = 0
+	for _, v := range cards {
+		if v > max {
+			max = v
+		}
+	}
+	return max
+}
+
+func Compare(masterCards, playerCards []int32) int32 {
+	if masterCards[0] == playerCards[0] {
+		return 0
+	}
+	_, v1 := CalcCow(masterCards)
+	_, v2 := CalcCow(playerCards)
+	if v1 > v2 {
+		return 1
+	}
+	if v1 < v2 {
+		return 2
+	}
+	if getLargestCard(masterCards) > getLargestCard(playerCards) {
+		return 1
+	}
+	return 2
 }

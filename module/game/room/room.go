@@ -24,6 +24,7 @@ type Room struct {
 	EventTimer *time.Timer
 	Tickers    map[string]*Ticker
 	Players    []*RoomPlayer
+	MasterPos  int32
 	State      int32
 	Ticker     []interface{}
 	F          *RoomFsm
@@ -46,11 +47,12 @@ func NewRoom(roomName, roomType string, ctx context.Context) *Room {
 	atomic.AddUint32(&id, 1)
 
 	return &Room{
-		Id:      int32(id),
-		Type:    roomType,
-		Name:    roomName,
-		Players: make([]*RoomPlayer, 0),
-		State:   0,
+		Id:        int32(id),
+		Type:      roomType,
+		Name:      roomName,
+		Players:   make([]*RoomPlayer, 0),
+		MasterPos: -1,
+		State:     0,
 		// RoomPlayerLimitNum: 2,
 		CloseChannel: make(chan int),
 		ChatChannel:  make(chan *chat.Chat, 500),

@@ -1,6 +1,6 @@
 package poker
 
-var AllCards = [55]int{
+var allCards = [55]int32{
 	11, 12, 13, 14,
 	21, 22, 23, 24,
 	31, 32, 33, 34,
@@ -17,6 +17,6 @@ var AllCards = [55]int{
 	145, 146, 147, //Joker 大小花
 }
 
-func InitCards() []int {
-	return AllCards[:]
+func InitCards() []int32 {
+	return allCards[:]
 }

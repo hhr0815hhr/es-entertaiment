@@ -18,10 +18,13 @@ enum CmdType {
     CMD_C2S_Ready = 20009;
 
     //cow
-    CMD_S2C_Cow_Start = 21000;
-    CMD_S2C_Cow_Draw = 21001;
-    CMD_S2C_Cow_Compare = 21002;
-    CMD_S2C_Cow_Ready = 21003;
+    CMD_S2C_Cow_Ready = 21000;
+    CMD_S2C_Cow_Master = 21001;
+    CMD_S2C_Cow_Start = 21002;
+    CMD_S2C_Cow_Draw = 21003;
+    CMD_S2C_Cow_Compare = 21004;
+    
+   
 
 
     //chat

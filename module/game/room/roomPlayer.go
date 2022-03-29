@@ -13,6 +13,7 @@ type RoomPlayer struct {
 	PlayerLevel  int
 	PlayerCoin   int64
 	PlayerStatus int
+	PlayerCards  []int32
 }
 
 func initRoomPlayer(playerId int64) *RoomPlayer {
@@ -26,6 +27,7 @@ func initRoomPlayer(playerId int64) *RoomPlayer {
 		rp.PlayerSex = info.(*p.Player).Sex
 		rp.PlayerLevel = info.(*p.Player).Level
 		rp.PlayerStatus = 0
+		rp.PlayerCards = make([]int32, 0, 5)
 	}
 	return rp
 }

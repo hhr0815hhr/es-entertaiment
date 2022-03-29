@@ -77,6 +77,69 @@ func (m *S2C_Cow_Start) GetState() int32 {
 	return 0
 }
 
+type S2C_Cow_Master struct {
+	CountDown            int32    `protobuf:"varint,1,opt,name=CountDown,proto3" json:"CountDown,omitempty"`
+	State                int32    `protobuf:"varint,2,opt,name=State,proto3" json:"State,omitempty"`
+	MasterPos            int32    `protobuf:"varint,3,opt,name=MasterPos,proto3" json:"MasterPos,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *S2C_Cow_Master) Reset()         { *m = S2C_Cow_Master{} }
+func (m *S2C_Cow_Master) String() string { return proto.CompactTextString(m) }
+func (*S2C_Cow_Master) ProtoMessage()    {}
+func (*S2C_Cow_Master) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f7d04b7edf541249, []int{1}
+}
+func (m *S2C_Cow_Master) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *S2C_Cow_Master) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_S2C_Cow_Master.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *S2C_Cow_Master) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_S2C_Cow_Master.Merge(m, src)
+}
+func (m *S2C_Cow_Master) XXX_Size() int {
+	return m.Size()
+}
+func (m *S2C_Cow_Master) XXX_DiscardUnknown() {
+	xxx_messageInfo_S2C_Cow_Master.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_S2C_Cow_Master proto.InternalMessageInfo
+
+func (m *S2C_Cow_Master) GetCountDown() int32 {
+	if m != nil {
+		return m.CountDown
+	}
+	return 0
+}
+
+func (m *S2C_Cow_Master) GetState() int32 {
+	if m != nil {
+		return m.State
+	}
+	return 0
+}
+
+func (m *S2C_Cow_Master) GetMasterPos() int32 {
+	if m != nil {
+		return m.MasterPos
+	}
+	return 0
+}
+
 type S2C_Cow_Draw struct {
 	CountDown            int32    `protobuf:"varint,1,opt,name=CountDown,proto3" json:"CountDown,omitempty"`
 	State                int32    `protobuf:"varint,2,opt,name=State,proto3" json:"State,omitempty"`
@@ -90,7 +153,7 @@ func (m *S2C_Cow_Draw) Reset()         { *m = S2C_Cow_Draw{} }
 func (m *S2C_Cow_Draw) String() string { return proto.CompactTextString(m) }
 func (*S2C_Cow_Draw) ProtoMessage()    {}
 func (*S2C_Cow_Draw) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f7d04b7edf541249, []int{1}
+	return fileDescriptor_f7d04b7edf541249, []int{2}
 }
 func (m *S2C_Cow_Draw) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -151,7 +214,7 @@ func (m *Cards) Reset()         { *m = Cards{} }
 func (m *Cards) String() string { return proto.CompactTextString(m) }
 func (*Cards) ProtoMessage()    {}
 func (*Cards) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f7d04b7edf541249, []int{2}
+	return fileDescriptor_f7d04b7edf541249, []int{3}
 }
 func (m *Cards) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -190,8 +253,9 @@ func (m *Cards) GetCard() []int32 {
 type S2C_Cow_Compare struct {
 	CountDown            int32    `protobuf:"varint,1,opt,name=CountDown,proto3" json:"CountDown,omitempty"`
 	State                int32    `protobuf:"varint,2,opt,name=State,proto3" json:"State,omitempty"`
-	CowType              []string `protobuf:"bytes,3,rep,name=CowType,proto3" json:"CowType,omitempty"`
+	CowType              []int32  `protobuf:"varint,3,rep,packed,name=CowType,proto3" json:"CowType,omitempty"`
 	Result               []int32  `protobuf:"varint,4,rep,packed,name=Result,proto3" json:"Result,omitempty"`
+	Change               int32    `protobuf:"varint,5,opt,name=Change,proto3" json:"Change,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -201,7 +265,7 @@ func (m *S2C_Cow_Compare) Reset()         { *m = S2C_Cow_Compare{} }
 func (m *S2C_Cow_Compare) String() string { return proto.CompactTextString(m) }
 func (*S2C_Cow_Compare) ProtoMessage()    {}
 func (*S2C_Cow_Compare) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f7d04b7edf541249, []int{3}
+	return fileDescriptor_f7d04b7edf541249, []int{4}
 }
 func (m *S2C_Cow_Compare) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -244,7 +308,7 @@ func (m *S2C_Cow_Compare) GetState() int32 {
 	return 0
 }
 
-func (m *S2C_Cow_Compare) GetCowType() []string {
+func (m *S2C_Cow_Compare) GetCowType() []int32 {
 	if m != nil {
 		return m.CowType
 	}
@@ -258,6 +322,13 @@ func (m *S2C_Cow_Compare) GetResult() []int32 {
 	return nil
 }
 
+func (m *S2C_Cow_Compare) GetChange() int32 {
+	if m != nil {
+		return m.Change
+	}
+	return 0
+}
+
 type S2C_Cow_Ready struct {
 	State                int32    `protobuf:"varint,1,opt,name=State,proto3" json:"State,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -269,7 +340,7 @@ func (m *S2C_Cow_Ready) Reset()         { *m = S2C_Cow_Ready{} }
 func (m *S2C_Cow_Ready) String() string { return proto.CompactTextString(m) }
 func (*S2C_Cow_Ready) ProtoMessage()    {}
 func (*S2C_Cow_Ready) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f7d04b7edf541249, []int{4}
+	return fileDescriptor_f7d04b7edf541249, []int{5}
 }
 func (m *S2C_Cow_Ready) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -307,6 +378,7 @@ func (m *S2C_Cow_Ready) GetState() int32 {
 
 func init() {
 	proto.RegisterType((*S2C_Cow_Start)(nil), "protos.S2C_Cow_Start")
+	proto.RegisterType((*S2C_Cow_Master)(nil), "protos.S2C_Cow_Master")
 	proto.RegisterType((*S2C_Cow_Draw)(nil), "protos.S2C_Cow_Draw")
 	proto.RegisterType((*Cards)(nil), "protos.Cards")
 	proto.RegisterType((*S2C_Cow_Compare)(nil), "protos.S2C_Cow_Compare")
@@ -316,22 +388,25 @@ func init() {
 func init() { proto.RegisterFile("cow.proto", fileDescriptor_f7d04b7edf541249) }
 
 var fileDescriptor_f7d04b7edf541249 = []byte{
-	// 236 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0xce, 0x2f, 0xd7,
-	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0x53, 0xc5, 0x4a, 0xce, 0x5c, 0xbc, 0xc1, 0x46,
-	0xce, 0xf1, 0xce, 0xf9, 0xe5, 0xf1, 0xc1, 0x25, 0x89, 0x45, 0x25, 0x42, 0x32, 0x5c, 0x9c, 0xce,
-	0xf9, 0xa5, 0x79, 0x25, 0x2e, 0xf9, 0xe5, 0x79, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0xac, 0x41, 0x08,
-	0x01, 0x21, 0x11, 0x2e, 0xd6, 0xe0, 0x92, 0xc4, 0x92, 0x54, 0x09, 0x26, 0xb0, 0x0c, 0x84, 0xa3,
-	0x94, 0xce, 0xc5, 0x03, 0x33, 0xc4, 0xa5, 0x28, 0xb1, 0x9c, 0x1c, 0x33, 0x84, 0x94, 0xb9, 0x58,
-	0x9d, 0x13, 0x8b, 0x52, 0x8a, 0x25, 0x98, 0x15, 0x98, 0x35, 0xb8, 0x8d, 0x78, 0x21, 0xee, 0x2c,
-	0xd6, 0x03, 0x0b, 0x06, 0x41, 0xe4, 0x94, 0xa4, 0xa1, 0x8a, 0x84, 0x84, 0xb8, 0x58, 0x40, 0x0c,
-	0x09, 0x46, 0x05, 0x66, 0x0d, 0xd6, 0x20, 0x30, 0x5b, 0xa9, 0x9c, 0x8b, 0x1f, 0xe6, 0x0a, 0xe7,
-	0xfc, 0xdc, 0x82, 0xc4, 0xa2, 0x54, 0xb2, 0x1c, 0x22, 0xc1, 0xc5, 0xee, 0x9c, 0x5f, 0x1e, 0x52,
-	0x59, 0x90, 0x0a, 0x76, 0x0a, 0x67, 0x10, 0x8c, 0x2b, 0x24, 0xc6, 0xc5, 0x16, 0x94, 0x5a, 0x5c,
-	0x9a, 0x53, 0x22, 0xc1, 0x02, 0xb6, 0x16, 0xca, 0x53, 0x52, 0x45, 0x84, 0x61, 0x50, 0x6a, 0x62,
-	0x4a, 0x25, 0xc2, 0x60, 0x46, 0x24, 0x83, 0x9d, 0x04, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48,
-	0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x19, 0x8f, 0xe5, 0x18, 0x92, 0x20, 0x91, 0x60, 0x0c, 0x08,
-	0x00, 0x00, 0xff, 0xff, 0xc7, 0x43, 0xc6, 0x0a, 0x98, 0x01, 0x00, 0x00,
+	// 273 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x52, 0xcf, 0x4a, 0xc3, 0x30,
+	0x18, 0x37, 0x76, 0x99, 0xec, 0xd3, 0xa9, 0x04, 0x91, 0x80, 0x52, 0x46, 0x44, 0xe8, 0x69, 0x87,
+	0xf9, 0x06, 0x66, 0x57, 0x41, 0x52, 0xef, 0x23, 0x73, 0x61, 0x1e, 0xb4, 0x5f, 0x49, 0x33, 0xc2,
+	0x9e, 0xc2, 0xab, 0x8f, 0xe4, 0xd1, 0x47, 0x90, 0xfa, 0x22, 0xd2, 0xa4, 0xb5, 0x9e, 0x7b, 0xea,
+	0xf7, 0xfb, 0x7d, 0xfd, 0xfd, 0x21, 0x09, 0x4c, 0x9e, 0xd1, 0xcf, 0x4b, 0x8b, 0x0e, 0xd9, 0x38,
+	0x7c, 0x2a, 0x21, 0x61, 0x9a, 0x2f, 0xe4, 0x4a, 0xa2, 0x5f, 0xe5, 0x4e, 0x5b, 0xc7, 0xae, 0x61,
+	0x22, 0x71, 0x57, 0xb8, 0x25, 0xfa, 0x82, 0x93, 0x19, 0xc9, 0xa8, 0xea, 0x09, 0x76, 0x01, 0x34,
+	0x77, 0xda, 0x19, 0x7e, 0x18, 0x36, 0x11, 0x88, 0x35, 0x9c, 0x76, 0x26, 0x0f, 0xba, 0x72, 0xc6,
+	0x0e, 0x71, 0x69, 0x34, 0x51, 0xfd, 0x88, 0x15, 0x4f, 0xa2, 0xe6, 0x8f, 0x10, 0x5b, 0x38, 0xe9,
+	0x32, 0x96, 0x56, 0xfb, 0x41, 0x09, 0x37, 0x40, 0xa5, 0xb6, 0x9b, 0xc6, 0x3d, 0xc9, 0x8e, 0x17,
+	0xd3, 0x78, 0x16, 0xd5, 0x3c, 0x90, 0x2a, 0xee, 0xc4, 0x55, 0xfb, 0x13, 0x63, 0x30, 0x6a, 0x06,
+	0x4e, 0x66, 0x49, 0x46, 0x55, 0x98, 0xc5, 0x3b, 0x81, 0xb3, 0xae, 0x86, 0xc4, 0xb7, 0x52, 0x5b,
+	0x33, 0xa8, 0x09, 0x87, 0x23, 0x89, 0xfe, 0x69, 0x5f, 0x9a, 0xd0, 0x85, 0xaa, 0x0e, 0xb2, 0x4b,
+	0x18, 0x2b, 0x53, 0xed, 0x5e, 0x1d, 0x1f, 0x85, 0x45, 0x8b, 0x1a, 0x5e, 0xbe, 0xe8, 0x62, 0x6b,
+	0x38, 0x0d, 0x46, 0x2d, 0x12, 0xb7, 0xfd, 0x05, 0x2a, 0xa3, 0x37, 0xfb, 0x3e, 0x90, 0xfc, 0x0b,
+	0xbc, 0x3f, 0xff, 0xac, 0x53, 0xf2, 0x55, 0xa7, 0xe4, 0xbb, 0x4e, 0xc9, 0xc7, 0x4f, 0x7a, 0xb0,
+	0x8e, 0x2f, 0xe0, 0xee, 0x37, 0x00, 0x00, 0xff, 0xff, 0xfc, 0x6b, 0xb1, 0x9b, 0x15, 0x02, 0x00,
+	0x00,
 }
 
 func (m *S2C_Cow_Start) Marshal() (dAtA []byte, err error) {
@@ -357,6 +432,48 @@ func (m *S2C_Cow_Start) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.State != 0 {
+		i = encodeVarintCow(dAtA, i, uint64(m.State))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.CountDown != 0 {
+		i = encodeVarintCow(dAtA, i, uint64(m.CountDown))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *S2C_Cow_Master) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *S2C_Cow_Master) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *S2C_Cow_Master) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.MasterPos != 0 {
+		i = encodeVarintCow(dAtA, i, uint64(m.MasterPos))
+		i--
+		dAtA[i] = 0x18
 	}
 	if m.State != 0 {
 		i = encodeVarintCow(dAtA, i, uint64(m.State))
@@ -492,6 +609,11 @@ func (m *S2C_Cow_Compare) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if m.Change != 0 {
+		i = encodeVarintCow(dAtA, i, uint64(m.Change))
+		i--
+		dAtA[i] = 0x28
+	}
 	if len(m.Result) > 0 {
 		dAtA4 := make([]byte, len(m.Result)*10)
 		var j3 int
@@ -512,13 +634,23 @@ func (m *S2C_Cow_Compare) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 	}
 	if len(m.CowType) > 0 {
-		for iNdEx := len(m.CowType) - 1; iNdEx >= 0; iNdEx-- {
-			i -= len(m.CowType[iNdEx])
-			copy(dAtA[i:], m.CowType[iNdEx])
-			i = encodeVarintCow(dAtA, i, uint64(len(m.CowType[iNdEx])))
-			i--
-			dAtA[i] = 0x1a
+		dAtA6 := make([]byte, len(m.CowType)*10)
+		var j5 int
+		for _, num1 := range m.CowType {
+			num := uint64(num1)
+			for num >= 1<<7 {
+				dAtA6[j5] = uint8(uint64(num)&0x7f | 0x80)
+				num >>= 7
+				j5++
+			}
+			dAtA6[j5] = uint8(num)
+			j5++
 		}
+		i -= j5
+		copy(dAtA[i:], dAtA6[:j5])
+		i = encodeVarintCow(dAtA, i, uint64(j5))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if m.State != 0 {
 		i = encodeVarintCow(dAtA, i, uint64(m.State))
@@ -594,6 +726,27 @@ func (m *S2C_Cow_Start) Size() (n int) {
 	return n
 }
 
+func (m *S2C_Cow_Master) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CountDown != 0 {
+		n += 1 + sovCow(uint64(m.CountDown))
+	}
+	if m.State != 0 {
+		n += 1 + sovCow(uint64(m.State))
+	}
+	if m.MasterPos != 0 {
+		n += 1 + sovCow(uint64(m.MasterPos))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func (m *S2C_Cow_Draw) Size() (n int) {
 	if m == nil {
 		return 0
@@ -650,10 +803,11 @@ func (m *S2C_Cow_Compare) Size() (n int) {
 		n += 1 + sovCow(uint64(m.State))
 	}
 	if len(m.CowType) > 0 {
-		for _, s := range m.CowType {
-			l = len(s)
-			n += 1 + l + sovCow(uint64(l))
+		l = 0
+		for _, e := range m.CowType {
+			l += sovCow(uint64(e))
 		}
+		n += 1 + sovCow(uint64(l)) + l
 	}
 	if len(m.Result) > 0 {
 		l = 0
@@ -661,6 +815,9 @@ func (m *S2C_Cow_Compare) Size() (n int) {
 			l += sovCow(uint64(e))
 		}
 		n += 1 + sovCow(uint64(l)) + l
+	}
+	if m.Change != 0 {
+		n += 1 + sovCow(uint64(m.Change))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -752,6 +909,114 @@ func (m *S2C_Cow_Start) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.State |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCow(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthCow
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *S2C_Cow_Master) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCow
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: S2C_Cow_Master: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: S2C_Cow_Master: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CountDown", wireType)
+			}
+			m.CountDown = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CountDown |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field State", wireType)
+			}
+			m.State = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.State |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MasterPos", wireType)
+			}
+			m.MasterPos = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MasterPos |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1096,37 +1361,81 @@ func (m *S2C_Cow_Compare) Unmarshal(dAtA []byte) error {
 				}
 			}
 		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CowType", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCow
+			if wireType == 0 {
+				var v int32
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowCow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
 				}
-				if iNdEx >= l {
+				m.CowType = append(m.CowType, v)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowCow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthCow
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthCow
+				}
+				if postIndex > l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
+				var elementCount int
+				var count int
+				for _, integer := range dAtA[iNdEx:postIndex] {
+					if integer < 128 {
+						count++
+					}
 				}
+				elementCount = count
+				if elementCount != 0 && len(m.CowType) == 0 {
+					m.CowType = make([]int32, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v int32
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowCow
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= int32(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.CowType = append(m.CowType, v)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field CowType", wireType)
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCow
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCow
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.CowType = append(m.CowType, string(dAtA[iNdEx:postIndex]))
-			iNdEx = postIndex
 		case 4:
 			if wireType == 0 {
 				var v int32
@@ -1202,6 +1511,25 @@ func (m *S2C_Cow_Compare) Unmarshal(dAtA []byte) error {
 				}
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Result", wireType)
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Change", wireType)
+			}
+			m.Change = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Change |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
 		default:
 			iNdEx = preIndex

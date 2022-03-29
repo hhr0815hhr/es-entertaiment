@@ -6,6 +6,12 @@ message S2C_Cow_Start {
     int32 State = 2;
 }
 
+message S2C_Cow_Master {
+    int32 CountDown = 1;
+    int32 State = 2;
+    int32 MasterPos = 3;
+}
+
 message S2C_Cow_Draw {
     int32 CountDown = 1;
     int32 State = 2;
@@ -19,8 +25,9 @@ message Cards {
 message S2C_Cow_Compare {
     int32 CountDown = 1;
     int32 State = 2;
-    repeated string CowType = 3;
+    repeated int32 CowType = 3;
     repeated int32 Result = 4;
+    int32 Change = 5;
 }
 
 message S2C_Cow_Ready {
